@@ -975,12 +975,20 @@
       <div class="ai-switch-group">
         <span>เปิดใช้งาน AI:</span>
         <label class="ai-switch" title="สลับเพื่อเปิด/ปิดระบบถาม-ตอบ AI">
-          <input type="checkbox" id="ai-power-switch" onchange="onAiPowerToggle(this.checked)">
+          <input type="checkbox" id="ai-power-switch" onchange="onAiPowerToggle(this)">
           <span class="ai-switch-slider"></span>
         </label>
         <span id="ai-switch-label" class="ai-switch-badge">OFF</span>
       </div>
     </div>
+
+    <form id="ai-passcode-bar" onsubmit="verifyAndEnableAi(event)" style="display: none; padding: 10px 24px; background: #fffbeb; border-bottom: 1px solid #fde68a; font-size: 13px; align-items: center; gap: 10px; flex-wrap: wrap;">
+      <strong style="color: #92400e;">🔑 ใส่รหัสผ่านเพื่อเปิดใช้งาน AI:</strong>
+      <input type="password" id="ai-passcode-input" class="ai-key-input" style="width: 180px; background: #fff;" placeholder="รหัสผ่าน..." autocomplete="off">
+      <button type="submit" id="ai-passcode-btn" class="ai-chip" style="background: #2563eb; color: #fff; border-color: #2563eb;">ยืนยัน</button>
+      <button type="button" class="ai-chip" onclick="cancelPasscodePrompt()">ยกเลิก</button>
+      <span id="ai-passcode-msg" style="color: #dc2626; font-weight: 700;"></span>
+    </form>
 
     <div class="ai-Starter-chips">
       <span style="font-size: 11.5px; font-weight: 700; color: #64748b; display: inline-flex; align-items: center; margin-right: 4px;">💡 คำถามตัวอย่าง:</span>
@@ -1126,6 +1134,7 @@
 // ============================================================================
 const AI_STATE = {
   enabled: false,
+  passcode: '',
   serverUrl: '',
   serverOnline: false,
   localLlmAvailable: false,
@@ -1196,41 +1205,52 @@ function renderMarkdown(md) {
   return html;
 }
 
-async function onAiPowerToggle(isOn) {
+function turnOffAiSystem() {
+  const sw = document.getElementById('ai-power-switch');
   const lbl = document.getElementById('ai-switch-label');
   const dot = document.getElementById('ai-status-dot');
   const txt = document.getElementById('ai-status-text');
   const engSel = document.getElementById('ai-engine-select');
   const scopeSel = document.getElementById('ai-scope-select');
+  const pwBar = document.getElementById('ai-passcode-bar');
 
-  if (!isOn) {
-    AI_STATE.enabled = false;
-    AI_STATE.serverOnline = false;
-    lbl.textContent = 'OFF';
-    lbl.className = 'ai-switch-badge';
-    dot.className = 'ai-status-dot off';
-    txt.textContent = 'ปิดใช้งาน AI (OFF)';
-    engSel.disabled = true;
-    scopeSel.disabled = true;
-    setChatControlsLocked(
-      true,
-      '🔒 ระบบ AI ปิดอยู่ — กรุณาเปิดสวิตช์ ON ด้านบนเพื่อเริ่มถาม-ตอบ',
-      '<span>ส่งคำถาม</span><span>➤</span>'
-    );
+  AI_STATE.enabled = false;
+  AI_STATE.passcode = '';
+  AI_STATE.serverOnline = false;
+  if (sw) sw.checked = false;
+  if (pwBar) pwBar.style.display = 'none';
+  lbl.textContent = 'OFF';
+  lbl.className = 'ai-switch-badge';
+  dot.className = 'ai-status-dot off';
+  txt.textContent = 'ปิดใช้งาน AI (OFF)';
+  engSel.disabled = true;
+  scopeSel.disabled = true;
+  setChatControlsLocked(
+    true,
+    '🔒 ระบบ AI ปิดอยู่ — กรุณาเปิดสวิตช์ ON ด้านบนเพื่อเริ่มถาม-ตอบ',
+    '<span>ส่งคำถาม</span><span>➤</span>'
+  );
+}
+
+function onAiPowerToggle(checkboxEl) {
+  if (!checkboxEl.checked) {
+    turnOffAiSystem();
     return;
   }
+  // Keep switch visually OFF until the user enters the correct passcode
+  checkboxEl.checked = false;
+  const pwBar = document.getElementById('ai-passcode-bar');
+  const pwInput = document.getElementById('ai-passcode-input');
+  const pwMsg = document.getElementById('ai-passcode-msg');
+  pwMsg.textContent = '';
+  pwInput.value = '';
+  pwBar.style.display = 'flex';
+  pwInput.focus();
+}
 
-  AI_STATE.enabled = true;
-  lbl.textContent = 'ON';
-  lbl.className = 'ai-switch-badge on';
-  engSel.disabled = false;
-  scopeSel.disabled = false;
-  await initAiServerConnection();
-  if (AI_STATE.enabled && !AI_STATE.busy && AI_STATE.cooldownRemaining <= 0) {
-    setChatControlsLocked(false, DEFAULT_INPUT_PLACEHOLDER, '<span>ส่งคำถาม</span><span>➤</span>');
-    const input = document.getElementById('ai-chat-input');
-    if (input) input.focus();
-  }
+function cancelPasscodePrompt() {
+  document.getElementById('ai-passcode-bar').style.display = 'none';
+  turnOffAiSystem();
 }
 
 async function probeServerHealth(baseUrl) {
@@ -1247,16 +1267,8 @@ async function probeServerHealth(baseUrl) {
   return null;
 }
 
-async function initAiServerConnection() {
-  if (!AI_STATE.enabled) return;
-  const dot = document.getElementById('ai-status-dot');
-  const txt = document.getElementById('ai-status-text');
-  dot.className = 'ai-status-dot';
-  txt.textContent = 'กำลังเชื่อมต่อเซิร์ฟเวอร์ AI...';
-
+async function discoverActiveServerUrl() {
   const candidates = [];
-
-  // 1. Check ai_config.json (updated automatically by start_ai_server.sh with Cloudflare Tunnel URL)
   try {
     const cfgRes = await fetch('ai_config.json?t=' + Date.now());
     if (cfgRes.ok) {
@@ -1270,7 +1282,6 @@ async function initAiServerConnection() {
     }
   } catch (_) {}
 
-  // 2. Also check localhost:8765 if running on the Mac mini itself
   if (!candidates.includes('http://127.0.0.1:8765')) {
     candidates.push('http://127.0.0.1:8765');
   }
@@ -1278,24 +1289,83 @@ async function initAiServerConnection() {
   for (const url of candidates) {
     const health = await probeServerHealth(url);
     if (health && health.status === 'ok') {
-      if (!AI_STATE.enabled) return;
-      AI_STATE.serverUrl = url;
-      AI_STATE.serverOnline = true;
-      AI_STATE.localLlmAvailable = !!(health.local_llm && health.local_llm.available);
-      if (health.local_llm && health.local_llm.models && health.local_llm.models.length > 0) {
-        AI_STATE.localModelName = health.local_llm.models[0].split('/').pop();
-      }
-      dot.className = 'ai-status-dot online';
-      txt.textContent = 'Online • Full-Text RAG Ready';
-      return;
+      return { url, health };
     }
   }
+  return null;
+}
 
-  if (!AI_STATE.enabled) return;
-  // Fallback if Mac mini tunnel is offline
-  AI_STATE.serverOnline = false;
-  dot.className = 'ai-status-dot fallback';
-  txt.textContent = 'Smart Browser Search Ready';
+async function verifyAndEnableAi(e) {
+  if (e) e.preventDefault();
+  const pwInput = document.getElementById('ai-passcode-input');
+  const pwMsg = document.getElementById('ai-passcode-msg');
+  const pwBtn = document.getElementById('ai-passcode-btn');
+  const enteredPw = (pwInput.value || '').trim();
+  if (!enteredPw) {
+    pwMsg.textContent = '⚠️ กรุณากรอกรหัสผ่าน';
+    pwInput.focus();
+    return;
+  }
+
+  pwBtn.disabled = true;
+  pwMsg.style.color = '#1d4ed8';
+  pwMsg.textContent = '⏳ กำลังตรวจสอบรหัสผ่าน...';
+
+  try {
+    const found = await discoverActiveServerUrl();
+    if (!found) {
+      pwMsg.style.color = '#dc2626';
+      pwMsg.textContent = '❌ ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์ AI ได้ในขณะนี้';
+      pwBtn.disabled = false;
+      return;
+    }
+
+    const res = await fetch(`${found.url}/api/auth`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ passcode: enteredPw })
+    });
+
+    if (!res.ok) {
+      pwMsg.style.color = '#dc2626';
+      pwMsg.textContent = '❌ รหัสผ่านไม่ถูกต้อง';
+      pwInput.value = '';
+      pwInput.focus();
+      pwBtn.disabled = false;
+      return;
+    }
+
+    // Passcode verified! Flip switch to ON and unlock controls
+    AI_STATE.enabled = true;
+    AI_STATE.passcode = enteredPw;
+    AI_STATE.serverUrl = found.url;
+    AI_STATE.serverOnline = true;
+
+    document.getElementById('ai-passcode-bar').style.display = 'none';
+    document.getElementById('ai-power-switch').checked = true;
+    const lbl = document.getElementById('ai-switch-label');
+    lbl.textContent = 'ON';
+    lbl.className = 'ai-switch-badge on';
+
+    const dot = document.getElementById('ai-status-dot');
+    const txt = document.getElementById('ai-status-text');
+    dot.className = 'ai-status-dot online';
+    txt.textContent = 'Online • Full-Text RAG Ready';
+
+    document.getElementById('ai-engine-select').disabled = false;
+    document.getElementById('ai-scope-select').disabled = false;
+
+    if (!AI_STATE.busy && AI_STATE.cooldownRemaining <= 0) {
+      setChatControlsLocked(false, DEFAULT_INPUT_PLACEHOLDER, '<span>ส่งคำถาม</span><span>➤</span>');
+      const chatInput = document.getElementById('ai-chat-input');
+      if (chatInput) chatInput.focus();
+    }
+  } catch (err) {
+    pwMsg.style.color = '#dc2626';
+    pwMsg.textContent = '❌ เกิดข้อผิดพลาดในการตรวจสอบรหัสผ่าน';
+  } finally {
+    pwBtn.disabled = false;
+  }
 }
 
 function askPresetQuestion(q) {
@@ -1649,35 +1719,29 @@ async function handleAiSubmit(e) {
   const loadingEl = appendLoadingBubble();
 
   try {
-    let result = null;
-    if (AI_STATE.serverOnline && AI_STATE.serverUrl) {
-      try {
-        const res = await fetch(`${AI_STATE.serverUrl}/api/chat`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            query,
-            engine,
-            api_key: apiKey,
-            scope,
-            top_k: 10
-          })
-        });
-        if (res.ok) {
-          result = await res.json();
-        } else if (res.status === 429) {
-          const errData = await res.json().catch(() => ({}));
-          throw new Error(errData.error || 'ระบบรับข้อความได้ทีละ 1 ข้อความและเว้นระยะทุก 5 วินาที กรุณารอสักครู่ครับ');
-        }
-      } catch (err) {
-        if (err.message && err.message.includes('5 วินาที')) throw err;
-        console.warn('RAG server request failed, falling back to browser search:', err);
-      }
+    const res = await fetch(`${AI_STATE.serverUrl}/api/chat`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        query,
+        engine,
+        passcode: AI_STATE.passcode,
+        scope,
+        top_k: 10
+      })
+    });
+    if (res.status === 401) {
+      turnOffAiSystem();
+      throw new Error('รหัสผ่านไม่ถูกต้อง กรุณาเปิดสวิตช์และยืนยันรหัสผ่านใหม่ครับ');
     }
-
-    if (!result) {
-      result = await runClientSideFallback(query, engine, apiKey, scope);
+    if (res.status === 429) {
+      const errData = await res.json().catch(() => ({}));
+      throw new Error(errData.error || 'ระบบรับข้อความได้ทีละ 1 ข้อความและเว้นระยะทุก 5 วินาที กรุณารอสักครู่ครับ');
     }
+    if (!res.ok) {
+      throw new Error('เกิดข้อผิดพลาดในการเชื่อมต่อเซิร์ฟเวอร์ AI');
+    }
+    const result = await res.json();
 
     if (loadingEl.cleanup) loadingEl.cleanup(); else loadingEl.remove();
 
