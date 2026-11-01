@@ -636,6 +636,16 @@
       border-color: var(--blue);
       box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
     }
+    .ai-chat-input:disabled {
+      background: #f1f5f9;
+      color: #64748b;
+      cursor: not-allowed;
+    }
+    .ai-chip:disabled, .ai-prompt-chip:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
     .ai-send-btn {
       background: var(--blue);
       color: #ffffff;
@@ -1047,6 +1057,7 @@ const AI_STATE = {
   localLlmAvailable: false,
   localModelName: 'Qwen3.8-27B-4bit',
   busy: false,
+  cooldownRemaining: 0,
   clientCacheLoaded: false,
   clientScales: [],
   clientPapers: [],
@@ -1215,6 +1226,7 @@ async function initAiServerConnection() {
 }
 
 function askPresetQuestion(q) {
+  if (AI_STATE.busy || AI_STATE.cooldownRemaining > 0) return;
   const input = document.getElementById('ai-chat-input');
   input.value = q;
   handleAiSubmit(new Event('submit'));
@@ -1245,9 +1257,7 @@ function appendLoadingBubble() {
       <div class="ai-bubble">
         <div class="ai-loading-box">
           <span class="ai-spinner"></span>
-          <span>
-            <span id="ai-loading-step">🔎 กำลังสืบค้นข้อมูลฉบับเต็มจากคลังวิจัย 42,498 เรื่อง และมาตรวัดจุฬาฯ 2,534 มาตรวัด</span><span id="ai-loading-dots" class="ai-dots-text">.</span>
-          </span>
+          <span id="ai-loading-step">🔎 กำลังสืบค้นข้อมูลฉบับเต็มจากคลังวิจัย 42,498 เรื่อง และมาตรวัดจุฬาฯ 2,534 มาตรวัด</span>
           <span class="ai-typing-dots" aria-hidden="true"><span></span><span></span><span></span></span>
           <span id="ai-loading-timer" class="ai-elapsed-badge">⏱️ 0.0s</span>
         </div>
@@ -1258,15 +1268,10 @@ function appendLoadingBubble() {
   box.scrollTop = box.scrollHeight;
 
   const t0 = performance.now();
-  let tick = 0;
-  const dotsSeq = ['.', '..', '...', '....'];
   div._timerInterval = setInterval(() => {
-    tick++;
     const elapsedSec = (performance.now() - t0) / 1000;
-    const dotsEl = div.querySelector('#ai-loading-dots');
     const timerEl = div.querySelector('#ai-loading-timer');
     const stepEl = div.querySelector('#ai-loading-step');
-    if (dotsEl) dotsEl.textContent = dotsSeq[tick % dotsSeq.length];
     if (timerEl) timerEl.textContent = `⏱️ ${elapsedSec.toFixed(1)}s`;
     if (stepEl) {
       if (elapsedSec > 4.0) {
@@ -1502,9 +1507,48 @@ async function runClientSideFallback(query, engine, apiKey, scope) {
   };
 }
 
+const DEFAULT_INPUT_PLACEHOLDER = "พิมพ์คำถาม เช่น 'หามาตรวัดความซึมเศร้าในวัยรุ่น พร้อมค่า Cronbach alpha' หรือ 'งานวิจัยที่ใช้ SEM ในไทยมีสัดส่วนเท่าไร'...";
+
+function setChatControlsLocked(locked, placeholderText, btnLabel) {
+  const input = document.getElementById('ai-chat-input');
+  const btn = document.getElementById('ai-send-btn');
+  const chips = document.querySelectorAll('.ai-chip');
+  input.disabled = locked;
+  btn.disabled = locked;
+  chips.forEach(c => { c.disabled = locked; });
+  input.placeholder = placeholderText || DEFAULT_INPUT_PLACEHOLDER;
+  btn.innerHTML = btnLabel || '<span>ส่งคำถาม</span><span>➤</span>';
+}
+
+function startCooldownCountdown(seconds) {
+  AI_STATE.cooldownRemaining = seconds;
+  setChatControlsLocked(
+    true,
+    `⏳ กรุณารออีก ${AI_STATE.cooldownRemaining} วินาที จึงจะพิมพ์คำถามถัดไปได้`,
+    `<span>รอ ${AI_STATE.cooldownRemaining}s</span>`
+  );
+  const timer = setInterval(() => {
+    AI_STATE.cooldownRemaining -= 1;
+    if (AI_STATE.cooldownRemaining > 0) {
+      setChatControlsLocked(
+        true,
+        `⏳ กรุณารออีก ${AI_STATE.cooldownRemaining} วินาที จึงจะพิมพ์คำถามถัดไปได้`,
+        `<span>รอ ${AI_STATE.cooldownRemaining}s</span>`
+      );
+    } else {
+      clearInterval(timer);
+      AI_STATE.cooldownRemaining = 0;
+      AI_STATE.busy = false;
+      setChatControlsLocked(false, DEFAULT_INPUT_PLACEHOLDER, '<span>ส่งคำถาม</span><span>➤</span>');
+      const input = document.getElementById('ai-chat-input');
+      if (input) input.focus();
+    }
+  }, 1000);
+}
+
 async function handleAiSubmit(e) {
   if (e) e.preventDefault();
-  if (AI_STATE.busy) return;
+  if (AI_STATE.busy || AI_STATE.cooldownRemaining > 0) return;
 
   const input = document.getElementById('ai-chat-input');
   const query = input.value.trim();
@@ -1516,7 +1560,11 @@ async function handleAiSubmit(e) {
 
   input.value = '';
   AI_STATE.busy = true;
-  document.getElementById('ai-send-btn').disabled = true;
+  setChatControlsLocked(
+    true,
+    '⏳ กำลังประมวลผลคำตอบ กรุณารอจนกว่าข้อความนี้จะเสร็จ',
+    '<span>กำลังทำงาน</span>'
+  );
 
   appendUserMessage(query);
   const loadingEl = appendLoadingBubble();
@@ -1538,8 +1586,12 @@ async function handleAiSubmit(e) {
         });
         if (res.ok) {
           result = await res.json();
+        } else if (res.status === 429) {
+          const errData = await res.json().catch(() => ({}));
+          throw new Error(errData.error || 'ระบบรับข้อความได้ทีละ 1 ข้อความและเว้นระยะทุก 5 วินาที กรุณารอสักครู่ครับ');
         }
       } catch (err) {
+        if (err.message && err.message.includes('5 วินาที')) throw err;
         console.warn('RAG server request failed, falling back to browser search:', err);
       }
     }
@@ -1578,13 +1630,12 @@ async function handleAiSubmit(e) {
     errDiv.innerHTML = `
       <div class="ai-avatar">⚠️</div>
       <div class="ai-bubble-wrap">
-        <div class="ai-bubble"><p>เกิดข้อผิดพลาดในการประมวลผล: ${escapeHtml(err.message || String(err))}</p></div>
+        <div class="ai-bubble"><p>${escapeHtml(err.message || String(err))}</p></div>
       </div>
     `;
     box.appendChild(errDiv);
   } finally {
-    AI_STATE.busy = false;
-    document.getElementById('ai-send-btn').disabled = false;
+    startCooldownCountdown(5);
   }
 }
 
