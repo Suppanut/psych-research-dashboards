@@ -957,9 +957,9 @@
     <div class="ai-controls-bar">
       <label class="ai-ctrl-group">
         <span>🧠 โหมด AI (Engine):</span>
-        <select id="ai-engine-select" class="ai-select" disabled>
+        <select id="ai-engine-select" class="ai-select" onchange="onAiEngineChange(this)" disabled>
+          <option value="local" selected>Qwen3.8-27B (Local AI)</option>
           <option value="agy_flash">Gemini 3.8 Flash (Antigravity Subscription)</option>
-          <option value="local">Qwen3.8-27B (Local AI)</option>
         </select>
       </label>
 
@@ -983,7 +983,7 @@
     </div>
 
     <form id="ai-passcode-bar" onsubmit="verifyAndEnableAi(event)" style="display: none; padding: 10px 24px; background: #fffbeb; border-bottom: 1px solid #fde68a; font-size: 13px; align-items: center; gap: 10px; flex-wrap: wrap;">
-      <strong style="color: #92400e;">🔑 ใส่รหัสผ่านเพื่อเปิดใช้งาน AI:</strong>
+      <strong style="color: #92400e;">🔑 ใส่รหัสผ่านเพื่อใช้งาน Gemini 3.8 Flash:</strong>
       <input type="password" id="ai-passcode-input" class="ai-key-input" style="width: 180px; background: #fff;" placeholder="รหัสผ่าน..." autocomplete="off">
       <button type="submit" id="ai-passcode-btn" class="ai-chip" style="background: #2563eb; color: #fff; border-color: #2563eb;">ยืนยัน</button>
       <button type="button" class="ai-chip" onclick="cancelPasscodePrompt()">ยกเลิก</button>
@@ -1186,6 +1186,7 @@ function turnOffAiSystem() {
   AI_STATE.serverOnline = false;
   if (sw) sw.checked = false;
   if (pwBar) pwBar.style.display = 'none';
+  if (engSel) engSel.value = 'local';
   lbl.textContent = 'OFF';
   lbl.className = 'ai-switch-badge';
   dot.className = 'ai-status-dot off';
@@ -1199,13 +1200,7 @@ function turnOffAiSystem() {
   );
 }
 
-function onAiPowerToggle(checkboxEl) {
-  if (!checkboxEl.checked) {
-    turnOffAiSystem();
-    return;
-  }
-  // Keep switch visually OFF until the user enters the correct passcode
-  checkboxEl.checked = false;
+function showPasscodePrompt() {
   const pwBar = document.getElementById('ai-passcode-bar');
   const pwInput = document.getElementById('ai-passcode-input');
   const pwMsg = document.getElementById('ai-passcode-msg');
@@ -1215,9 +1210,79 @@ function onAiPowerToggle(checkboxEl) {
   pwInput.focus();
 }
 
+function activateAiUiControls(serverUrl) {
+  AI_STATE.enabled = true;
+  AI_STATE.serverUrl = serverUrl;
+  AI_STATE.serverOnline = true;
+
+  document.getElementById('ai-passcode-bar').style.display = 'none';
+  document.getElementById('ai-power-switch').checked = true;
+  const lbl = document.getElementById('ai-switch-label');
+  lbl.textContent = 'ON';
+  lbl.className = 'ai-switch-badge on';
+
+  const dot = document.getElementById('ai-status-dot');
+  const txt = document.getElementById('ai-status-text');
+  dot.className = 'ai-status-dot online';
+  txt.textContent = 'Online • Full-Text RAG Ready';
+
+  document.getElementById('ai-engine-select').disabled = false;
+  document.getElementById('ai-scope-select').disabled = false;
+
+  if (!AI_STATE.busy && AI_STATE.cooldownRemaining <= 0) {
+    setChatControlsLocked(false, DEFAULT_INPUT_PLACEHOLDER, '<span>ส่งคำถาม</span><span>➤</span>');
+    const chatInput = document.getElementById('ai-chat-input');
+    if (chatInput) chatInput.focus();
+  }
+}
+
+async function onAiPowerToggle(checkboxEl) {
+  if (!checkboxEl.checked) {
+    turnOffAiSystem();
+    return;
+  }
+  const engSel = document.getElementById('ai-engine-select');
+  const selectedEngine = engSel ? engSel.value : 'local';
+
+  // If Flash is selected and passcode is not verified yet, require passcode
+  if (selectedEngine === 'agy_flash' && !AI_STATE.passcode) {
+    checkboxEl.checked = false;
+    showPasscodePrompt();
+    return;
+  }
+
+  // Local AI (Qwen3.8-27B) requires NO passcode — connect and turn ON immediately
+  const dot = document.getElementById('ai-status-dot');
+  const txt = document.getElementById('ai-status-text');
+  txt.textContent = '⏳ กำลังเชื่อมต่อเซิร์ฟเวอร์ AI...';
+
+  const found = await discoverActiveServerUrl();
+  if (!found) {
+    checkboxEl.checked = false;
+    dot.className = 'ai-status-dot off';
+    txt.textContent = '❌ ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์ AI ได้';
+    return;
+  }
+  activateAiUiControls(found.url);
+}
+
+function onAiEngineChange(selectEl) {
+  if (selectEl.value === 'agy_flash' && !AI_STATE.passcode) {
+    // Keep Local AI selected until the user enters the correct passcode for Flash
+    selectEl.value = 'local';
+    showPasscodePrompt();
+  } else {
+    document.getElementById('ai-passcode-bar').style.display = 'none';
+  }
+}
+
 function cancelPasscodePrompt() {
   document.getElementById('ai-passcode-bar').style.display = 'none';
-  turnOffAiSystem();
+  const engSel = document.getElementById('ai-engine-select');
+  if (engSel) engSel.value = 'local';
+  if (!AI_STATE.enabled) {
+    turnOffAiSystem();
+  }
 }
 
 async function probeServerHealth(baseUrl) {
@@ -1302,31 +1367,11 @@ async function verifyAndEnableAi(e) {
       return;
     }
 
-    // Passcode verified! Flip switch to ON and unlock controls
-    AI_STATE.enabled = true;
+    // Passcode verified! Unlock Gemini 3.8 Flash and ensure AI is ON
     AI_STATE.passcode = enteredPw;
-    AI_STATE.serverUrl = found.url;
-    AI_STATE.serverOnline = true;
-
-    document.getElementById('ai-passcode-bar').style.display = 'none';
-    document.getElementById('ai-power-switch').checked = true;
-    const lbl = document.getElementById('ai-switch-label');
-    lbl.textContent = 'ON';
-    lbl.className = 'ai-switch-badge on';
-
-    const dot = document.getElementById('ai-status-dot');
-    const txt = document.getElementById('ai-status-text');
-    dot.className = 'ai-status-dot online';
-    txt.textContent = 'Online • Full-Text RAG Ready';
-
-    document.getElementById('ai-engine-select').disabled = false;
-    document.getElementById('ai-scope-select').disabled = false;
-
-    if (!AI_STATE.busy && AI_STATE.cooldownRemaining <= 0) {
-      setChatControlsLocked(false, DEFAULT_INPUT_PLACEHOLDER, '<span>ส่งคำถาม</span><span>➤</span>');
-      const chatInput = document.getElementById('ai-chat-input');
-      if (chatInput) chatInput.focus();
-    }
+    const engSel = document.getElementById('ai-engine-select');
+    if (engSel) engSel.value = 'agy_flash';
+    activateAiUiControls(found.url);
   } catch (err) {
     pwMsg.style.color = '#dc2626';
     pwMsg.textContent = '❌ เกิดข้อผิดพลาดในการตรวจสอบรหัสผ่าน';
@@ -1698,8 +1743,11 @@ async function handleAiSubmit(e) {
       })
     });
     if (res.status === 401) {
-      turnOffAiSystem();
-      throw new Error('รหัสผ่านไม่ถูกต้อง กรุณาเปิดสวิตช์และยืนยันรหัสผ่านใหม่ครับ');
+      AI_STATE.passcode = '';
+      const engSel = document.getElementById('ai-engine-select');
+      if (engSel) engSel.value = 'local';
+      showPasscodePrompt();
+      throw new Error('กรุณาใส่รหัสผ่านที่ถูกต้องเพื่อใช้งาน Gemini 3.8 Flash ครับ');
     }
     if (res.status === 429) {
       const errData = await res.json().catch(() => ({}));
