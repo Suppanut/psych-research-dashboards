@@ -355,10 +355,10 @@
     <div class="agy-portal-links">
       <a href="index.html" class="agy-nav-link active">🏠 หน้าแรก (Portal Home)</a>
       <a href="psych_research_practices_dashboard.html" class="agy-nav-link">
-        📊 Research Practices &amp; Stats <span class="agy-nav-badge">N = 42,605</span>
+        📊 Research Practices &amp; Stats <span class="agy-nav-badge" data-sync="prp-badge">N = 42,498</span>
       </a>
       <a href="chula_psych_scales_corpus_dashboard.html" class="agy-nav-link">
-        📋 คลังมาตรวัดจิตวิทยา จุฬาฯ <span class="agy-nav-badge">768 เล่ม | 2,534 มาตรวัด</span>
+        📋 คลังมาตรวัดจิตวิทยา จุฬาฯ <span class="agy-nav-badge" data-sync="chula-badge">768 เล่ม | 2,534 มาตรวัด</span>
       </a>
     </div>
   </div>
@@ -369,8 +369,8 @@
   <div class="hero-inner">
     <div class="hero-badges">
       <span class="hero-badge">📊 Interactive Research Dashboards</span>
-      <span class="hero-badge">🌐 N = 42,605 Psychological Works</span>
-      <span class="hero-badge">🏛️ 768 Chula Graduate Theses &amp; 2,534 Psychometric Scales</span>
+      <span class="hero-badge" data-sync="hero-prp">🌐 N = 42,498 Psychological Works</span>
+      <span class="hero-badge" data-sync="hero-chula">🏛️ 768 Chula Graduate Theses &amp; 2,534 Psychometric Scales</span>
       <span class="hero-badge">⚡ Zero-Dependency Self-Contained Web App</span>
     </div>
     <h1>ระบบฐานข้อมูลและแดชบอร์ดวิเคราะห์แนวปฏิบัติการวิจัยและมาตรวัดทางจิตวิทยา</h1>
@@ -392,7 +392,7 @@
         <div class="card-body">
           <div class="card-tag-row">
             <span class="tag tag-blue">Dashboard 1 • International &amp; Thai Corpora</span>
-            <span class="tag tag-emerald">N = 42,605 Works</span>
+            <span class="tag tag-emerald" data-sync="tag-prp-n">N = 42,498 Works</span>
             <span class="tag tag-amber">1995–2026 Longitudinal</span>
           </div>
           <h2>Psychological Research Practices &amp; Statistical Methods Analytics Dashboard</h2>
@@ -402,11 +402,11 @@
           </p>
           <div class="kpi-mini-grid">
             <div class="kpi-mini">
-              <div class="num" style="color: var(--blue);">42,605</div>
+              <div class="num" style="color: var(--blue);" data-sync="prp-total">42,498</div>
               <div class="lbl">งานวิจัยทั้งหมดในคลัง</div>
             </div>
             <div class="kpi-mini">
-              <div class="num" style="color: var(--emerald);">39,349</div>
+              <div class="num" style="color: var(--emerald);" data-sync="prp-emp">34,626</div>
               <div class="lbl">งานวิจัยเชิงประจักษ์ (Empirical)</div>
             </div>
             <div class="kpi-mini">
@@ -417,13 +417,13 @@
           <ul class="feature-list">
             <li>ตารางเปรียบเทียบสถิติวิเคราะห์ 24 ตระกูล (Cross-Corpus Matrix) พร้อมสลับตัวหาร (All Empirical / Quant+Mixed / Pure Quant)</li>
             <li>วิเคราะห์แนวโน้มระยะยาว 30 ปี ของวารสาร APA (ค.ศ. 1995–2025) และ Open Science Practices (Open Data, Preregistration, Power Analysis)</li>
-            <li>Interactive Explorer สืบค้นและกรองงานวิจัยทั้ง 42,605 เรื่องแบบ Real-time พร้อมลิงก์ DOI และเอกสารต้นฉบับ</li>
+            <li>Interactive Explorer สืบค้นและกรองงานวิจัยทั้ง <span data-sync="prp-total-inline">42,498</span> เรื่องแบบ Real-time พร้อมลิงก์ DOI และเอกสารต้นฉบับ</li>
           </ul>
         </div>
       </div>
       <div class="card-footer">
         <a href="psych_research_practices_dashboard.html" class="btn-launch btn-launch-blue">
-          <span>เปิดแดชบอร์ด Research Practices &amp; Statistics (N = 42,605)</span>
+          <span data-sync="btn-prp">เปิดแดชบอร์ด Research Practices &amp; Statistics (N = 42,498)</span>
           <span>→</span>
         </a>
       </div>
@@ -436,8 +436,8 @@
         <div class="card-body">
           <div class="card-tag-row">
             <span class="tag tag-rose">Dashboard 2 • Chula Psych Scales Corpus</span>
-            <span class="tag tag-purple">768 วิทยานิพนธ์บัณฑิตศึกษา</span>
-            <span class="tag tag-emerald">2,534 มาตรวัดวิจัย</span>
+            <span class="tag tag-purple" data-sync="tag-chula-theses">768 วิทยานิพนธ์บัณฑิตศึกษา</span>
+            <span class="tag tag-emerald" data-sync="tag-chula-scales">2,534 มาตรวัดวิจัย</span>
           </div>
           <h2>คลังมาตรวัดทางจิตวิทยา จุฬาลงกรณ์มหาวิทยาลัย (พ.ศ. 2542–2568)</h2>
           <p class="desc">
@@ -446,28 +446,28 @@
           </p>
           <div class="kpi-mini-grid">
             <div class="kpi-mini">
-              <div class="num" style="color: #1e40af;">768 เล่ม</div>
+              <div class="num" style="color: #1e40af;" data-sync="chula-theses">768 เล่ม</div>
               <div class="lbl">วิทยานิพนธ์ ป.โท &amp; ป.เอก</div>
             </div>
             <div class="kpi-mini">
-              <div class="num" style="color: var(--rose);">2,534</div>
+              <div class="num" style="color: var(--rose);" data-sync="chula-scales">2,534</div>
               <div class="lbl">มาตรวัด/เครื่องมือวิจัย</div>
             </div>
             <div class="kpi-mini">
-              <div class="num" style="color: var(--emerald);">α = .854</div>
+              <div class="num" style="color: var(--emerald);" data-sync="chula-alpha">α = .854</div>
               <div class="lbl">ค่าเฉลี่ยความเที่ยง (Mean α)</div>
             </div>
           </div>
           <ul class="feature-list">
             <li>สืบค้นมาตรวัดตามคำสำคัญ สาขาวิชา ปีพิมพ์ (พ.ศ. 2542–2568) ระดับปริญญา และรูปแบบการวิจัย</li>
             <li>แสดงรายละเอียดครบถ้วน: ชื่อมาตรวัด แหล่งที่มา มาตรประมาณค่า จำนวนข้อ ค่าความเที่ยง (Cronbach's α) องค์ประกอบย่อย และหน้าอ้างอิงในเล่ม</li>
-            <li>เปิดดูและดาวน์โหลดไฟล์ข้อมูลโครงสร้าง <code>JSON (UTF-8)</code> รายเล่ม พร้อมปุ่มเปิดไฟล์ <code>📕 PDF</code> ฉบับเต็มบน Chula Digiverse ครบทั้ง 768 เล่ม</li>
+            <li>เปิดดูและดาวน์โหลดไฟล์ข้อมูลโครงสร้าง <code>JSON (UTF-8)</code> รายเล่ม พร้อมปุ่มเปิดไฟล์ <code>📕 PDF</code> ฉบับเต็มบน Chula Digiverse ครบทั้ง <span data-sync="chula-theses-inline">768</span> เล่ม</li>
           </ul>
         </div>
       </div>
       <div class="card-footer">
         <a href="chula_psych_scales_corpus_dashboard.html" class="btn-launch btn-launch-rose">
-          <span>เปิดแดชบอร์ดคลังมาตรวัดทางจิตวิทยา จุฬาฯ (2,534 มาตรวัด)</span>
+          <span data-sync="btn-chula">เปิดแดชบอร์ดคลังมาตรวัดทางจิตวิทยา จุฬาฯ (2,534 มาตรวัด)</span>
           <span>→</span>
         </a>
       </div>
@@ -491,14 +491,14 @@
           <tr>
             <td><strong>1. Psychological Research Practices &amp; Statistical Methods</strong></td>
             <td>วารสารนานาชาติ (APA 23 วารสาร, PLOS ONE, Frontiers, BMC) &amp; วิจัยไทย (TCI 1, จุฬาฯ)</td>
-            <td><strong>42,605</strong> งานวิจัย<br><span style="color:var(--muted);font-size:12px;">(ค.ศ. 1995–2026)</span></td>
+            <td><strong data-sync="tbl-prp-total">42,498</strong> งานวิจัย<br><span style="color:var(--muted);font-size:12px;">(Empirical: <span data-sync="tbl-prp-emp">34,626</span>)</span></td>
             <td>Cross-Corpus Matrix, 24 Statistical Families, Software, Open Science, Interactive Paper Explorer</td>
             <td><a href="psych_research_practices_dashboard.html" style="color:var(--blue);font-weight:700;text-decoration:none;">เข้าสู่ Dashboard 1 ↗</a></td>
           </tr>
           <tr>
             <td><strong>2. คลังมาตรวัดทางจิตวิทยา จุฬาลงกรณ์มหาวิทยาลัย</strong></td>
             <td>วิทยานิพนธ์ระดับปริญญาโท (705) และปริญญาเอก (63) คณะจิตวิทยา จุฬาฯ</td>
-            <td><strong>768</strong> วิทยานิพนธ์<br><strong>2,534</strong> มาตรวัด</td>
+            <td><strong data-sync="tbl-chula-theses">768</strong> วิทยานิพนธ์<br><strong data-sync="tbl-chula-scales">2,534</strong> มาตรวัด</td>
             <td>ค้นหามาตรวัด, ค่าความเที่ยง (α), จำนวนข้อ, องค์ประกอบย่อย, ดู/ดาวน์โหลด JSON, ลิงก์ PDF (Chula Digiverse)</td>
             <td><a href="chula_psych_scales_corpus_dashboard.html" style="color:#1e40af;font-weight:700;text-decoration:none;">เข้าสู่ Dashboard 2 ↗</a></td>
           </tr>
@@ -511,5 +511,60 @@
     Psychological Research Practices &amp; Psychometric Scales Analytics Portal • Self-Contained Static Web Application for GitHub Pages
   </div>
 </main>
+
+<script>
+// Client-side live synchronization: if either dashboard HTML file is updated directly,
+// automatically parse its COHORTS / <title> and update all displayed numbers on index.html.
+(async function syncDashboardMetrics() {
+  const setTxt = (key, val) => {
+    document.querySelectorAll(`[data-sync="${key}"]`).forEach(el => { el.textContent = val; });
+  };
+  try {
+    const res1 = await fetch('psych_research_practices_dashboard.html');
+    if (res1.ok) {
+      const txt1 = await res1.text();
+      const mCohorts = txt1.match(/const COHORTS\s*=\s*(\\{.*?\});/);
+      if (mCohorts) {
+        const cohorts = JSON.parse(mCohorts[1]);
+        if (cohorts && cohorts.all) {
+          const nTot = Number(cohorts.all.n_total).toLocaleString();
+          const nEmp = Number(cohorts.all.n_emp).toLocaleString();
+          setTxt('prp-badge', `N = ${nTot}`);
+          setTxt('hero-prp', `🌐 N = ${nTot} Psychological Works`);
+          setTxt('tag-prp-n', `N = ${nTot} Works`);
+          setTxt('prp-total', nTot);
+          setTxt('prp-emp', nEmp);
+          setTxt('prp-total-inline', nTot);
+          setTxt('btn-prp', `เปิดแดชบอร์ด Research Practices & Statistics (N = ${nTot})`);
+          setTxt('tbl-prp-total', nTot);
+          setTxt('tbl-prp-emp', nEmp);
+        }
+      }
+    }
+  } catch (_) {}
+
+  try {
+    const res2 = await fetch('chula_psych_scales_corpus_dashboard.html');
+    if (res2.ok) {
+      const txt2 = await res2.text();
+      const mTitle = txt2.match(/<title>.*?N\s*=\s*([\d,]+)\s*วิทยานิพนธ์\s*\|\s*([\d,]+)\s*มาตรวัด.*?</title>/);
+      if (mTitle) {
+        const nTh = mTitle[1];
+        const nSc = mTitle[2];
+        setTxt('chula-badge', `${nTh} เล่ม | ${nSc} มาตรวัด`);
+        setTxt('hero-chula', `🏛️ ${nTh} Chula Graduate Theses & ${nSc} Psychometric Scales`);
+        setTxt('tag-chula-theses', `${nTh} วิทยานิพนธ์บัณฑิตศึกษา`);
+        setTxt('tag-chula-scales', `${nSc} มาตรวัดวิจัย`);
+        setTxt('chula-theses', `${nTh} เล่ม`);
+        setTxt('chula-scales', nSc);
+        setTxt('chula-theses-inline', nTh);
+        setTxt('btn-chula', `เปิดแดชบอร์ดคลังมาตรวัดทางจิตวิทยา จุฬาฯ (${nSc} มาตรวัด)`);
+        setTxt('tbl-chula-theses', nTh);
+        setTxt('tbl-chula-scales', nSc);
+      }
+    }
+  } catch (_) {}
+})();
+</script>
 </body>
 </html>
