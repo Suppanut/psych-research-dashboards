@@ -893,12 +893,13 @@
     </div>
 
     <div class="ai-controls-bar">
-      <div class="ai-ctrl-group">
-        <span>🧠 โมเดล AI:</span>
-        <span style="background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; padding: 4px 12px; border-radius: 999px; font-weight: 700;">
-          ⚡ Gemini 3.8 Flash (Low)
-        </span>
-      </div>
+      <label class="ai-ctrl-group">
+        <span>🧠 โหมด AI (Engine):</span>
+        <select id="ai-engine-select" class="ai-select">
+          <option value="agy_flash">Gemini 3.8 Flash (Antigravity Subscription)</option>
+          <option value="local">Qwen3.8-27B (Local AI)</option>
+        </select>
+      </label>
 
       <label class="ai-ctrl-group">
         <span>📚 ขอบเขตข้อมูล (Scope):</span>
@@ -1554,7 +1555,7 @@ async function handleAiSubmit(e) {
   const query = input.value.trim();
   if (!query) return;
 
-  const engine = 'agy_flash';
+  const engine = document.getElementById('ai-engine-select').value;
   const scope = document.getElementById('ai-scope-select').value;
   const apiKey = '';
 
