@@ -1,0 +1,7 @@
+{
+  "api_base_url": "https://rejected-gamma-mystery-sonic.trycloudflare.com",
+  "local_fallback_url": "http://127.0.0.1:8765",
+  "default_engine": "local",
+  "machine": "Mac mini M5 Pro (64GB) — Qwen3.8-27B-4bit Full-Text RAG",
+  "updated_at": "2026-11-01T05:56:15Z"
+}
