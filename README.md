@@ -11,4 +11,9 @@
 - `index.html` — หน้าแรก (Portal Landing Page พร้อมระบบซิงค์ตัวเลขสถิติอัตโนมัติ)
 - `psych_research_practices_dashboard.html` — แดชบอร์ดวิเคราะห์แนวปฏิบัติการวิจัยและสถิติ (N = 42,498)
 - `chula_psych_scales_corpus_dashboard.html` — แดชบอร์ดคลังมาตรวัดทางจิตวิทยา จุฬาฯ (N = 768 วิทยานิพนธ์ | 2,534 มาตรวัด)
+- `LICENSE` — สัญญาอนุญาตการใช้งาน (MIT License & CC BY 4.0)
 - `.nojekyll` — ไฟล์กำหนดให้ GitHub Pages เสิร์ฟไฟล์ Static HTML โดยตรง
+
+## สัญญาอนุญาตและการอ้างอิง (License & Attribution)
+ผลงานนี้เผยแพร่ภายใต้สัญญาอนุญาต **[MIT License](./LICENSE)** (สำหรับโค้ดเว็บแอปพลิเคชัน) และ **[Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/)** (สำหรับฐานข้อมูลและเนื้อหาการวิเคราะห์)
+- **อนุญาตให้นำไปใช้ ดัดแปลง หรือเผยแพร่ต่อได้ โดยต้องระบุเครดิตและอ้างอิงแหล่งที่มา (Attribution Required)**
