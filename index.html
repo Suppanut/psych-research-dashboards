@@ -957,7 +957,7 @@
     <div class="ai-controls-bar">
       <label class="ai-ctrl-group">
         <span>🧠 โหมด AI (Engine):</span>
-        <select id="ai-engine-select" class="ai-select" onchange="onAiEngineChange(this)" disabled>
+        <select id="ai-engine-select" class="ai-select" autocomplete="off" onchange="onAiEngineChange(this)">
           <option value="local" selected>Qwen3.8-27B (Local AI)</option>
           <option value="agy_flash">Gemini 3.8 Flash (Antigravity Subscription)</option>
         </select>
@@ -965,8 +965,8 @@
 
       <label class="ai-ctrl-group">
         <span>📚 ขอบเขตข้อมูล (Scope):</span>
-        <select id="ai-scope-select" class="ai-select" disabled>
-          <option value="all">🌐 ทั้งหมด (42,498 งานวิจัย + 2,534 มาตรวัดจุฬาฯ)</option>
+        <select id="ai-scope-select" class="ai-select" autocomplete="off">
+          <option value="all" selected>🌐 ทั้งหมด (42,498 งานวิจัย + 2,534 มาตรวัดจุฬาฯ)</option>
           <option value="scales">📏 เฉพาะคลังมาตรวัดทางจิตวิทยา จุฬาฯ (2,534 มาตรวัด)</option>
           <option value="papers">📊 เฉพาะงานวิจัย &amp; สถิติวิเคราะห์ (42,498 เรื่อง: APA, OA, TCI 1, Chula)</option>
         </select>
@@ -975,7 +975,7 @@
       <div class="ai-switch-group">
         <span>เปิดใช้งาน AI:</span>
         <label class="ai-switch" title="สลับเพื่อเปิด/ปิดระบบถาม-ตอบ AI">
-          <input type="checkbox" id="ai-power-switch" onchange="onAiPowerToggle(this)">
+          <input type="checkbox" id="ai-power-switch" autocomplete="off" onchange="onAiPowerToggle(this)">
           <span class="ai-switch-slider"></span>
         </label>
         <span id="ai-switch-label" class="ai-switch-badge">OFF</span>
@@ -1191,8 +1191,8 @@ function turnOffAiSystem() {
   lbl.className = 'ai-switch-badge';
   dot.className = 'ai-status-dot off';
   txt.textContent = 'ปิดใช้งาน AI (OFF)';
-  engSel.disabled = true;
-  scopeSel.disabled = true;
+  engSel.disabled = false;
+  scopeSel.disabled = false;
   setChatControlsLocked(
     true,
     '🔒 ระบบ AI ปิดอยู่ — กรุณาเปิดสวิตช์ ON ด้านบนเพื่อเริ่มถาม-ตอบ',
@@ -1797,7 +1797,15 @@ async function handleAiSubmit(e) {
   }
 }
 
-// AI starts in OFF state until the user toggles the switch ON.
+// AI starts in OFF state with Qwen3.8-27B (Local AI) forced as default (preventing browser form-restore of previous selection).
+(function initAiDefaults() {
+  const engSel = document.getElementById('ai-engine-select');
+  const scopeSel = document.getElementById('ai-scope-select');
+  const sw = document.getElementById('ai-power-switch');
+  if (engSel) { engSel.disabled = false; engSel.value = 'local'; }
+  if (scopeSel) { scopeSel.disabled = false; }
+  if (sw) { sw.checked = false; }
+})();
 </script>
 
 </body>
