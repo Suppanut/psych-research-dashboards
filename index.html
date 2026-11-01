@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Psychological Research Practices &amp; Psychometric Scales Analytics Portal</title>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --border: #e2e8f0;
+      --text: #0f172a;
+      --muted: #475569;
+      --blue: #2563eb;
+      --blue-dark: #1d4ed8;
+      --blue-soft: #eff6ff;
+      --rose: #e11d48;
+      --rose-soft: #fff1f2;
+      --emerald: #059669;
+      --emerald-soft: #ecfdf5;
+      --amber: #d97706;
+      --amber-soft: #fffbeb;
+      --purple: #7e22ce;
+      --purple-soft: #faf5ff;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Sarabun", "Inter", "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    .hero {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 55%, #701a75 100%);
+      color: #ffffff;
+      padding: 48px 24px 44px;
+      border-bottom: 4px solid #38bdf8;
+    }
+    .hero-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .hero-badge {
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #f1f5f9;
+    }
+    .hero h1 {
+      font-size: clamp(24px, 3.2vw, 34px);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+      line-height: 1.25;
+    }
+    .hero p {
+      font-size: 15.5px;
+      color: #cbd5e1;
+      max-width: 920px;
+    }
+    .main-container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 32px 24px 56px;
+    }
+    .section-title {
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(460px, 1fr));
+      gap: 24px;
+      margin-bottom: 36px;
+    }
+    @media (max-width: 560px) {
+      .cards-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .dash-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    }
+    .dash-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.1);
+      border-color: #94a3b8;
+    }
+    .card-banner-blue {
+      height: 6px;
+      background: linear-gradient(90deg, #2563eb, #06b6d4);
+    }
+    .card-banner-rose {
+      height: 6px;
+      background: linear-gradient(90deg, #1e40af, #db2777);
+    }
+    .card-body {
+      padding: 26px 28px 22px;
+    }
+    .card-tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .tag {
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 999px;
+    }
+    .tag-blue { background: var(--blue-soft); color: var(--blue-dark); border: 1px solid #bfdbfe; }
+    .tag-emerald { background: var(--emerald-soft); color: #047857; border: 1px solid #a7f3d0; }
+    .tag-rose { background: var(--rose-soft); color: #be123c; border: 1px solid #fecdd3; }
+    .tag-purple { background: var(--purple-soft); color: #6b21a8; border: 1px solid #e9d5ff; }
+    .tag-amber { background: var(--amber-soft); color: #b45309; border: 1px solid #fde68a; }
+
+    .dash-card h2 {
+      font-size: 21px;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 8px;
+      line-height: 1.35;
+    }
+    .dash-card p.desc {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 18px;
+    }
+    .kpi-mini-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+    .kpi-mini {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 12px;
+    }
+    .kpi-mini .num {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1.2;
+    }
+    .kpi-mini .lbl {
+      font-size: 11.5px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+    .feature-list {
+      list-style: none;
+      margin-bottom: 10px;
+    }
+    .feature-list li {
+      font-size: 13.5px;
+      color: #334155;
+      padding: 5px 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .feature-list li::before {
+      content: "✓";
+      font-weight: 800;
+      color: var(--emerald);
+      flex-shrink: 0;
+    }
+    .card-footer {
+      padding: 16px 28px 22px;
+      border-top: 1px solid #f1f5f9;
+      background: #fcfdff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .btn-launch {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 11px 20px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      color: #ffffff;
+      width: 100%;
+      transition: background 0.15s ease, transform 0.1s ease;
+    }
+    .btn-launch-blue {
+      background: var(--blue);
+    }
+    .btn-launch-blue:hover {
+      background: var(--blue-dark);
+    }
+    .btn-launch-rose {
+      background: #1e40af;
+    }
+    .btn-launch-rose:hover {
+      background: #1e3a8a;
+    }
+    .summary-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px 28px;
+      box-shadow: 0 2px 10px rgba(15, 23, 42, 0.03);
+    }
+    .summary-box h3 {
+      font-size: 16.5px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+    .summary-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+    }
+    .summary-table th, .summary-table td {
+      padding: 10px 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    .summary-table th {
+      background: #f8fafc;
+      font-weight: 700;
+      color: #334155;
+      font-size: 12.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+    .footer-note {
+      text-align: center;
+      margin-top: 36px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+<!-- PORTAL TOP SWITCHER BAR -->
+<style>
+  .agy-portal-bar {
+    background: #0f172a;
+    color: #f8fafc;
+    border-bottom: 1px solid #1e293b;
+    font-family: -apple-system, BlinkMacSystemFont, "Sarabun", "Inter", "Segoe UI", Roboto, sans-serif;
+    font-size: 13px;
+    line-height: 1.4;
+    padding: 8px 16px;
+    position: relative;
+    z-index: 1000;
+  }
+  .agy-portal-inner {
+    max-width: 1460px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .agy-portal-brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    color: #e2e8f0;
+    text-decoration: none;
+    font-size: 13.5px;
+  }
+  .agy-portal-brand span.agy-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #38bdf8;
+    box-shadow: 0 0 8px #38bdf8;
+  }
+  .agy-portal-links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+  }
+  .agy-nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px;
+    border-radius: 6px;
+    color: #cbd5e1;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 12.5px;
+    border: 1px solid transparent;
+    transition: all 0.15s ease;
+  }
+  .agy-nav-link:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+  }
+  .agy-nav-link.active {
+    background: #2563eb;
+    color: #ffffff;
+    border-color: #3b82f6;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  }
+  .agy-nav-badge {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 1px 6px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+  }
+</style>
+<div class="agy-portal-bar">
+  <div class="agy-portal-inner">
+    <a href="index.html" class="agy-portal-brand">
+      <span class="agy-dot"></span>
+      <span>Psych Research &amp; Psychometric Scales Analytics Portal</span>
+    </a>
+    <div class="agy-portal-links">
+      <a href="index.html" class="agy-nav-link active">🏠 หน้าแรก (Portal Home)</a>
+      <a href="psych_research_practices_dashboard.html" class="agy-nav-link">
+        📊 Research Practices &amp; Stats <span class="agy-nav-badge">N = 42,605</span>
+      </a>
+      <a href="chula_psych_scales_corpus_dashboard.html" class="agy-nav-link">
+        📋 คลังมาตรวัดจิตวิทยา จุฬาฯ <span class="agy-nav-badge">768 เล่ม | 2,534 มาตรวัด</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-badges">
+      <span class="hero-badge">📊 Interactive Research Dashboards</span>
+      <span class="hero-badge">🌐 N = 42,605 Psychological Works</span>
+      <span class="hero-badge">🏛️ 768 Chula Graduate Theses &amp; 2,534 Psychometric Scales</span>
+      <span class="hero-badge">⚡ Zero-Dependency Self-Contained Web App</span>
+    </div>
+    <h1>ระบบฐานข้อมูลและแดชบอร์ดวิเคราะห์แนวปฏิบัติการวิจัยและมาตรวัดทางจิตวิทยา</h1>
+    <p>
+      รวบรวมแดชบอร์ดวิเคราะห์วิธีวิทยาการวิจัย สถิติที่ใช้ในงานวิจัยทางจิตวิทยาทั้งระดับนานาชาติและในประเทศไทย (ค.ศ. 1995–2026)
+      พร้อมคลังข้อมูลมาตรวัดและเครื่องมือวิจัยทางจิตวิทยาจากวิทยานิพนธ์ระดับบัณฑิตศึกษา จุฬาลงกรณ์มหาวิทยาลัย
+    </p>
+  </div>
+</header>
+
+<main class="main-container">
+  <div class="section-title">เลือกแดชบอร์ดที่ต้องการสืบค้นและวิเคราะห์ข้อมูล (Select Dashboard)</div>
+
+  <div class="cards-grid">
+    <!-- DASHBOARD 1: PSYCH RESEARCH PRACTICES -->
+    <article class="dash-card">
+      <div>
+        <div class="card-banner-blue"></div>
+        <div class="card-body">
+          <div class="card-tag-row">
+            <span class="tag tag-blue">Dashboard 1 • International &amp; Thai Corpora</span>
+            <span class="tag tag-emerald">N = 42,605 Works</span>
+            <span class="tag tag-amber">1995–2026 Longitudinal</span>
+          </div>
+          <h2>Psychological Research Practices &amp; Statistical Methods Analytics Dashboard</h2>
+          <p class="desc">
+            แดชบอร์ดเปรียบเทียบแนวปฏิบัติการวิจัย รูปแบบการวิจัย สถิติวิเคราะห์ ซอฟต์แวร์ และ Open Science
+            ระหว่างวารสารจิตวิทยานานาชาติ (APA Core Journals, PLOS ONE, Frontiers, BMC Psychology) กับฐานข้อมูลวิจัยไทย (ThaiJo TCI กลุ่ม 1 และวิทยานิพนธ์จุฬาฯ)
+          </p>
+          <div class="kpi-mini-grid">
+            <div class="kpi-mini">
+              <div class="num" style="color: var(--blue);">42,605</div>
+              <div class="lbl">งานวิจัยทั้งหมดในคลัง</div>
+            </div>
+            <div class="kpi-mini">
+              <div class="num" style="color: var(--emerald);">39,349</div>
+              <div class="lbl">งานวิจัยเชิงประจักษ์ (Empirical)</div>
+            </div>
+            <div class="kpi-mini">
+              <div class="num" style="color: var(--purple);">6 คลังข้อมูล</div>
+              <div class="lbl">APA • OA • TCI 1 • Chula</div>
+            </div>
+          </div>
+          <ul class="feature-list">
+            <li>ตารางเปรียบเทียบสถิติวิเคราะห์ 24 ตระกูล (Cross-Corpus Matrix) พร้อมสลับตัวหาร (All Empirical / Quant+Mixed / Pure Quant)</li>
+            <li>วิเคราะห์แนวโน้มระยะยาว 30 ปี ของวารสาร APA (ค.ศ. 1995–2025) และ Open Science Practices (Open Data, Preregistration, Power Analysis)</li>
+            <li>Interactive Explorer สืบค้นและกรองงานวิจัยทั้ง 42,605 เรื่องแบบ Real-time พร้อมลิงก์ DOI และเอกสารต้นฉบับ</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card-footer">
+        <a href="psych_research_practices_dashboard.html" class="btn-launch btn-launch-blue">
+          <span>เปิดแดชบอร์ด Research Practices &amp; Statistics (N = 42,605)</span>
+          <span>→</span>
+        </a>
+      </div>
+    </article>
+
+    <!-- DASHBOARD 2: CHULA PSYCH SCALES CORPUS -->
+    <article class="dash-card">
+      <div>
+        <div class="card-banner-rose"></div>
+        <div class="card-body">
+          <div class="card-tag-row">
+            <span class="tag tag-rose">Dashboard 2 • Chula Psych Scales Corpus</span>
+            <span class="tag tag-purple">768 วิทยานิพนธ์บัณฑิตศึกษา</span>
+            <span class="tag tag-emerald">2,534 มาตรวัดวิจัย</span>
+          </div>
+          <h2>คลังมาตรวัดทางจิตวิทยา จุฬาลงกรณ์มหาวิทยาลัย (พ.ศ. 2542–2568)</h2>
+          <p class="desc">
+            ฐานข้อมูลเครื่องมือวิจัยและมาตรวัดทางจิตวิทยาที่สกัดจากบทระเบียบวิธีวิจัยของวิทยานิพนธ์ปริญญาโท (705 เล่ม)
+            และปริญญาเอก (63 เล่ม) คณะจิตวิทยา จุฬาลงกรณ์มหาวิทยาลัย ครบทุกเล่มที่มีไฟล์บทระเบียบวิธีวิจัย
+          </p>
+          <div class="kpi-mini-grid">
+            <div class="kpi-mini">
+              <div class="num" style="color: #1e40af;">768 เล่ม</div>
+              <div class="lbl">วิทยานิพนธ์ ป.โท &amp; ป.เอก</div>
+            </div>
+            <div class="kpi-mini">
+              <div class="num" style="color: var(--rose);">2,534</div>
+              <div class="lbl">มาตรวัด/เครื่องมือวิจัย</div>
+            </div>
+            <div class="kpi-mini">
+              <div class="num" style="color: var(--emerald);">α = .854</div>
+              <div class="lbl">ค่าเฉลี่ยความเที่ยง (Mean α)</div>
+            </div>
+          </div>
+          <ul class="feature-list">
+            <li>สืบค้นมาตรวัดตามคำสำคัญ สาขาวิชา ปีพิมพ์ (พ.ศ. 2542–2568) ระดับปริญญา และรูปแบบการวิจัย</li>
+            <li>แสดงรายละเอียดครบถ้วน: ชื่อมาตรวัด แหล่งที่มา มาตรประมาณค่า จำนวนข้อ ค่าความเที่ยง (Cronbach's α) องค์ประกอบย่อย และหน้าอ้างอิงในเล่ม</li>
+            <li>เปิดดูและดาวน์โหลดไฟล์ข้อมูลโครงสร้าง <code>JSON (UTF-8)</code> รายเล่ม พร้อมปุ่มเปิดไฟล์ <code>📕 PDF</code> ฉบับเต็มบน Chula Digiverse ครบทั้ง 768 เล่ม</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card-footer">
+        <a href="chula_psych_scales_corpus_dashboard.html" class="btn-launch btn-launch-rose">
+          <span>เปิดแดชบอร์ดคลังมาตรวัดทางจิตวิทยา จุฬาฯ (2,534 มาตรวัด)</span>
+          <span>→</span>
+        </a>
+      </div>
+    </article>
+  </div>
+
+  <section class="summary-box">
+    <h3>📌 สรุปภาพรวมฐานข้อมูลในระบบ (Portal Overview)</h3>
+    <div style="overflow-x: auto;">
+      <table class="summary-table">
+        <thead>
+          <tr>
+            <th>ชื่อแดชบอร์ด</th>
+            <th>ขอบเขตข้อมูล (Corpus Scope)</th>
+            <th>จำนวนข้อมูล</th>
+            <th>ฟีเจอร์หลัก</th>
+            <th>ลิงก์เข้าใช้งาน</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>1. Psychological Research Practices &amp; Statistical Methods</strong></td>
+            <td>วารสารนานาชาติ (APA 23 วารสาร, PLOS ONE, Frontiers, BMC) &amp; วิจัยไทย (TCI 1, จุฬาฯ)</td>
+            <td><strong>42,605</strong> งานวิจัย<br><span style="color:var(--muted);font-size:12px;">(ค.ศ. 1995–2026)</span></td>
+            <td>Cross-Corpus Matrix, 24 Statistical Families, Software, Open Science, Interactive Paper Explorer</td>
+            <td><a href="psych_research_practices_dashboard.html" style="color:var(--blue);font-weight:700;text-decoration:none;">เข้าสู่ Dashboard 1 ↗</a></td>
+          </tr>
+          <tr>
+            <td><strong>2. คลังมาตรวัดทางจิตวิทยา จุฬาลงกรณ์มหาวิทยาลัย</strong></td>
+            <td>วิทยานิพนธ์ระดับปริญญาโท (705) และปริญญาเอก (63) คณะจิตวิทยา จุฬาฯ</td>
+            <td><strong>768</strong> วิทยานิพนธ์<br><strong>2,534</strong> มาตรวัด</td>
+            <td>ค้นหามาตรวัด, ค่าความเที่ยง (α), จำนวนข้อ, องค์ประกอบย่อย, ดู/ดาวน์โหลด JSON, ลิงก์ PDF (Chula Digiverse)</td>
+            <td><a href="chula_psych_scales_corpus_dashboard.html" style="color:#1e40af;font-weight:700;text-decoration:none;">เข้าสู่ Dashboard 2 ↗</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="footer-note">
+    Psychological Research Practices &amp; Psychometric Scales Analytics Portal • Self-Contained Static Web Application for GitHub Pages
+  </div>
+</main>
+</body>
+</html>
