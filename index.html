@@ -886,9 +886,12 @@
       <label class="ai-ctrl-group">
         <span>🧠 โหมด AI (Engine):</span>
         <select id="ai-engine-select" class="ai-select" onchange="onAiEngineChange()">
+          <option value="agy_flash">⚡ Antigravity Subscription • Gemini 3.8 Flash (ไม่ต้องใช้ API Key)</option>
+          <option value="agy_argon">🚀 Antigravity Subscription • Gemini 4 Argon (ไม่ต้องใช้ API Key)</option>
+          <option value="agy_claude">🧠 Antigravity Subscription • Claude Sonnet 5.5 (ไม่ต้องใช้ API Key)</option>
           <option value="local">🖥️ Local AI • Mac mini M5 Pro 64GB (Qwen3.8-27B ฟรี 100%)</option>
-          <option value="gemini">✨ Cloud API • Google Gemini 2.5 Flash</option>
-          <option value="openai">🌐 Cloud API • OpenAI GPT-4o-mini</option>
+          <option value="gemini">✨ Cloud API • Google Gemini 2.5 Flash (ใส่ API Key)</option>
+          <option value="openai">🌐 Cloud API • OpenAI GPT-4o-mini (ใส่ API Key)</option>
           <option value="search_only">⚡ Instant Full-Text Search (ค้นหาด่วน + คัดลอกเนื้อหาฉบับเต็ม)</option>
         </select>
       </label>
@@ -1222,7 +1225,9 @@ async function initAiServerConnection() {
         AI_STATE.localModelName = health.local_llm.models[0].split('/').pop();
       }
       dot.className = 'ai-status-dot online';
-      if (AI_STATE.localLlmAvailable) {
+      if (health.antigravity_subscription && health.antigravity_subscription.available) {
+        txt.textContent = `Online • Antigravity Subscription + Mac mini M5 Pro (${AI_STATE.localModelName})`;
+      } else if (AI_STATE.localLlmAvailable) {
         txt.textContent = `Online • Mac mini M5 Pro (${AI_STATE.localModelName} Full-Text RAG)`;
       } else {
         txt.textContent = `Online • Full-Text RAG Server (42,498 Works + 2,534 Scales)`;
