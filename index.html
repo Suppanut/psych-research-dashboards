@@ -1310,13 +1310,24 @@ function appendLoadingBubble() {
 function buildSourcesHtml(sources) {
   if (!sources || !sources.length) return '';
   const cards = sources.slice(0, 8).map(s => {
-    if (s.type === 'chula_scale') {
+    if (s.badge && s.meta) {
+      const isScale = s.type === 'scale' || s.type === 'chula_scale';
+      return `
+        <div class="ai-source-card">
+          <span class="ai-source-badge ${isScale ? 'scale' : ''}">${isScale ? '📏 ' : '📄 '}${escapeHtml(s.badge)}</span>
+          <div class="ai-source-title">${escapeHtml((s.title || '').slice(0, 130))}</div>
+          <div class="ai-source-meta">${escapeHtml(s.meta)}</div>
+          ${s.url ? `<a class="ai-source-link" href="${escapeHtml(s.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(s.url_label || '🔗 เปิดเอกสารต้นฉบับ')} ↗</a>` : ''}
+        </div>
+      `;
+    }
+    if (s.type === 'chula_scale' || s.type === 'scale') {
       const alphaStr = s.alpha ? `α = ${escapeHtml(s.alpha)}` : 'ไม่ระบุ α';
       const itemsStr = s.items ? `${escapeHtml(s.items)} ข้อ` : '';
       return `
         <div class="ai-source-card">
           <span class="ai-source-badge scale">📏 มาตรวัดจุฬาฯ • BIBID ${escapeHtml(s.bibid)} (${escapeHtml(s.year_be || s.year_ce)})</span>
-          <div class="ai-source-title">${escapeHtml(s.scale_name_th || s.scale_name_en)}</div>
+          <div class="ai-source-title">${escapeHtml(s.scale_name_th || s.scale_name_en || s.title)}</div>
           <div class="ai-source-meta">
             ${s.scale_name_en ? `<div><strong>EN:</strong> ${escapeHtml(s.scale_name_en)}</div>` : ''}
             <div><strong>ความเที่ยง:</strong> ${alphaStr} ${itemsStr ? `• <strong>จำนวน:</strong> ${itemsStr}` : ''}</div>
