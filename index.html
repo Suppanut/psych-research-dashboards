@@ -883,18 +883,12 @@
     </div>
 
     <div class="ai-controls-bar">
-      <label class="ai-ctrl-group">
-        <span>🧠 โหมด AI (Engine):</span>
-        <select id="ai-engine-select" class="ai-select" onchange="onAiEngineChange()">
-          <option value="agy_flash">⚡ Antigravity Subscription • Gemini 3.8 Flash (ไม่ต้องใช้ API Key)</option>
-          <option value="agy_argon">🚀 Antigravity Subscription • Gemini 4 Argon (ไม่ต้องใช้ API Key)</option>
-          <option value="agy_claude">🧠 Antigravity Subscription • Claude Sonnet 5.5 (ไม่ต้องใช้ API Key)</option>
-          <option value="local">🖥️ Local AI • Mac mini M5 Pro 64GB (Qwen3.8-27B ฟรี 100%)</option>
-          <option value="gemini">✨ Cloud API • Google Gemini 2.5 Flash (ใส่ API Key)</option>
-          <option value="openai">🌐 Cloud API • OpenAI GPT-4o-mini (ใส่ API Key)</option>
-          <option value="search_only">⚡ Instant Full-Text Search (ค้นหาด่วน + คัดลอกเนื้อหาฉบับเต็ม)</option>
-        </select>
-      </label>
+      <div class="ai-ctrl-group">
+        <span>🧠 โมเดล AI:</span>
+        <span style="background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; padding: 4px 12px; border-radius: 999px; font-weight: 700;">
+          ⚡ Gemini 3.8 Flash (Low)
+        </span>
+      </div>
 
       <label class="ai-ctrl-group">
         <span>📚 ขอบเขตข้อมูล (Scope):</span>
@@ -904,22 +898,6 @@
           <option value="papers">📊 เฉพาะงานวิจัย &amp; สถิติวิเคราะห์ (42,498 เรื่อง: APA, OA, TCI 1, Chula)</option>
         </select>
       </label>
-
-      <div id="ai-apikey-wrap" class="ai-ctrl-group" style="display: none;">
-        <span>🔑 API Key:</span>
-        <input type="password" id="ai-apikey-input" class="ai-key-input" placeholder="วาง Gemini หรือ OpenAI API Key..." oninput="saveAiKey(this.value)">
-      </div>
-
-      <button type="button" class="ai-chip" style="margin-left: auto;" onclick="toggleServerConfigModal()" title="ตั้งค่า URL เซิร์ฟเวอร์ Mac mini (Cloudflare Tunnel)">
-        ⚙️ ตั้งค่า Server URL
-      </button>
-    </div>
-
-    <div id="ai-server-config-bar" style="display: none; padding: 10px 24px; background: #eff6ff; border-bottom: 1px solid #bfdbfe; font-size: 12.5px; align-items: center; gap: 10px; flex-wrap: wrap;">
-      <strong style="color: #1e40af;">🔗 RAG Server Endpoint (Mac mini M5 Pro / Cloudflare Tunnel):</strong>
-      <input type="text" id="ai-server-url-input" class="ai-key-input" style="width: 340px; background: #fff;" placeholder="https://xxxx.trycloudflare.com หรือ http://127.0.0.1:8765">
-      <button type="button" class="ai-chip" style="background: #2563eb; color: #fff; border-color: #2563eb;" onclick="applyCustomServerUrl()">บันทึกและเชื่อมต่อใหม่</button>
-      <span style="color: #475569;">(ค่าเริ่มต้นซิงค์อัตโนมัติจากไฟล์ <code>ai_config.json</code>)</span>
     </div>
 
     <div class="ai-Starter-chips">
@@ -1225,13 +1203,7 @@ async function initAiServerConnection() {
         AI_STATE.localModelName = health.local_llm.models[0].split('/').pop();
       }
       dot.className = 'ai-status-dot online';
-      if (health.antigravity_subscription && health.antigravity_subscription.available) {
-        txt.textContent = `Online • Antigravity Subscription + Mac mini M5 Pro (${AI_STATE.localModelName})`;
-      } else if (AI_STATE.localLlmAvailable) {
-        txt.textContent = `Online • Mac mini M5 Pro (${AI_STATE.localModelName} Full-Text RAG)`;
-      } else {
-        txt.textContent = `Online • Full-Text RAG Server (42,498 Works + 2,534 Scales)`;
-      }
+      txt.textContent = 'Online • Gemini 3.8 Flash (Low) Full-Text RAG';
       return;
     }
   }
@@ -1239,7 +1211,7 @@ async function initAiServerConnection() {
   // Fallback if Mac mini tunnel is offline
   AI_STATE.serverOnline = false;
   dot.className = 'ai-status-dot fallback';
-  txt.textContent = 'Smart Browser Search Ready (สามารถใส่ API Key เพื่อใช้ Gemini/OpenAI ได้)';
+  txt.textContent = 'Smart Browser Search Ready';
 }
 
 function askPresetQuestion(q) {
@@ -1538,15 +1510,9 @@ async function handleAiSubmit(e) {
   const query = input.value.trim();
   if (!query) return;
 
-  const engine = document.getElementById('ai-engine-select').value;
+  const engine = 'agy_flash';
   const scope = document.getElementById('ai-scope-select').value;
-  const apiKey = (document.getElementById('ai-apikey-input').value || '').trim();
-
-  if ((engine === 'gemini' || engine === 'openai') && !apiKey) {
-    alert(`กรุณาใส่ API Key สำหรับ ${engine === 'gemini' ? 'Google Gemini' : 'OpenAI'} ในช่อง API Key ด้านบน หรือเปลี่ยนโหมดเป็น "Local AI • Mac mini M5 Pro (ฟรี 100%)" ครับ`);
-    document.getElementById('ai-apikey-input').focus();
-    return;
-  }
+  const apiKey = '';
 
   input.value = '';
   AI_STATE.busy = true;
