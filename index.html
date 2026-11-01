@@ -341,6 +341,68 @@
       background: #38bdf8;
       box-shadow: 0 0 8px #38bdf8;
     }
+    .ai-status-dot.off {
+      background: #94a3b8;
+      box-shadow: none;
+    }
+    /* iOS-style ON/OFF Toggle Switch */
+    .ai-switch-group {
+      margin-left: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      font-weight: 700;
+      color: #334155;
+      user-select: none;
+    }
+    .ai-switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 28px;
+      cursor: pointer;
+    }
+    .ai-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .ai-switch-slider {
+      position: absolute;
+      inset: 0;
+      background-color: #e2e8f0;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 999px;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .ai-switch-slider::before {
+      position: absolute;
+      content: "";
+      height: 22px;
+      width: 22px;
+      left: 2px;
+      top: 1.5px;
+      background-color: #ffffff;
+      border-radius: 50%;
+      box-shadow: 0 2px 4px rgba(15, 23, 42, 0.22);
+      transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .ai-switch input:checked + .ai-switch-slider {
+      background-color: #00c853;
+      border-color: #00b248;
+    }
+    .ai-switch input:checked + .ai-switch-slider::before {
+      transform: translateX(21px);
+    }
+    .ai-switch-badge {
+      font-size: 12px;
+      font-weight: 800;
+      min-width: 32px;
+      color: #64748b;
+    }
+    .ai-switch-badge.on {
+      color: #059669;
+    }
     .ai-controls-bar {
       background: #f1f5f9;
       padding: 10px 24px;
@@ -887,15 +949,15 @@
         </div>
       </div>
       <div id="ai-status-pill" class="ai-status-pill" title="สถานะการเชื่อมต่อเซิร์ฟเวอร์ AI">
-        <span id="ai-status-dot" class="ai-status-dot"></span>
-        <span id="ai-status-text">กำลังตรวจสอบเซิร์ฟเวอร์ AI...</span>
+        <span id="ai-status-dot" class="ai-status-dot off"></span>
+        <span id="ai-status-text">ปิดใช้งาน AI (OFF)</span>
       </div>
     </div>
 
     <div class="ai-controls-bar">
       <label class="ai-ctrl-group">
         <span>🧠 โหมด AI (Engine):</span>
-        <select id="ai-engine-select" class="ai-select">
+        <select id="ai-engine-select" class="ai-select" disabled>
           <option value="agy_flash">Gemini 3.8 Flash (Antigravity Subscription)</option>
           <option value="local">Qwen3.8-27B (Local AI)</option>
         </select>
@@ -903,21 +965,30 @@
 
       <label class="ai-ctrl-group">
         <span>📚 ขอบเขตข้อมูล (Scope):</span>
-        <select id="ai-scope-select" class="ai-select">
+        <select id="ai-scope-select" class="ai-select" disabled>
           <option value="all">🌐 ทั้งหมด (42,498 งานวิจัย + 2,534 มาตรวัดจุฬาฯ)</option>
           <option value="scales">📏 เฉพาะคลังมาตรวัดทางจิตวิทยา จุฬาฯ (2,534 มาตรวัด)</option>
           <option value="papers">📊 เฉพาะงานวิจัย &amp; สถิติวิเคราะห์ (42,498 เรื่อง: APA, OA, TCI 1, Chula)</option>
         </select>
       </label>
+
+      <div class="ai-switch-group">
+        <span>เปิดใช้งาน AI:</span>
+        <label class="ai-switch" title="สลับเพื่อเปิด/ปิดระบบถาม-ตอบ AI">
+          <input type="checkbox" id="ai-power-switch" onchange="onAiPowerToggle(this.checked)">
+          <span class="ai-switch-slider"></span>
+        </label>
+        <span id="ai-switch-label" class="ai-switch-badge">OFF</span>
+      </div>
     </div>
 
     <div class="ai-Starter-chips">
       <span style="font-size: 11.5px; font-weight: 700; color: #64748b; display: inline-flex; align-items: center; margin-right: 4px;">💡 คำถามตัวอย่าง:</span>
-      <button type="button" class="ai-chip" onclick="askPresetQuestion('หามาตรวัดภาวะหมดไฟ (Burnout) หรือความเหนื่อยหน่ายในงาน พร้อมค่าความเที่ยง Cronbach alpha จำนวนข้อ และลิงก์ PDF')">🔍 มาตรวัดภาวะหมดไฟ (Burnout) &amp; ค่า α</button>
-      <button type="button" class="ai-chip" onclick="askPresetQuestion('เปรียบเทียบสถิติที่ใช้ในวารสารนานาชาติ APA กับงานวิจัยไทยในฐาน TCI 1 และวิทยานิพนธ์จุฬาฯ ต่างกันอย่างไร?')">📊 เปรียบเทียบสถิติวิจัย APA vs วิจัยไทย (TCI 1 &amp; จุฬาฯ)</button>
-      <button type="button" class="ai-chip" onclick="askPresetQuestion('หามาตรวัดความเมตตากรุณาต่อตนเอง (Self-Compassion) หรือสติ (Mindfulness) ในวิทยานิพนธ์จุฬาฯ มีกี่ข้อ ค่าความเที่ยงเท่าไร?')">🧘 มาตรวัด Self-Compassion / Mindfulness ในจุฬาฯ</button>
-      <button type="button" class="ai-chip" onclick="askPresetQuestion('งานวิจัยที่ศึกษา Executive Function หรือ Working Memory ใช้เครื่องมือและการวิเคราะห์สถิติแบบใดบ้าง?')">🧠 งานวิจัย Executive Function &amp; Working Memory</button>
-      <button type="button" class="ai-chip" onclick="askPresetQuestion('แนวโน้มการทำ Open Science (Open Data, Preregistration, Power Analysis) ในงานวิจัยจิตวิทยาเป็นอย่างไร?')">📈 สถิติแนวโน้ม Open Science &amp; Power Analysis</button>
+      <button type="button" class="ai-chip" disabled onclick="askPresetQuestion('หามาตรวัดภาวะหมดไฟ (Burnout) หรือความเหนื่อยหน่ายในงาน พร้อมค่าความเที่ยง Cronbach alpha จำนวนข้อ และลิงก์ PDF')">🔍 มาตรวัดภาวะหมดไฟ (Burnout) &amp; ค่า α</button>
+      <button type="button" class="ai-chip" disabled onclick="askPresetQuestion('เปรียบเทียบสถิติที่ใช้ในวารสารนานาชาติ APA กับงานวิจัยไทยในฐาน TCI 1 และวิทยานิพนธ์จุฬาฯ ต่างกันอย่างไร?')">📊 เปรียบเทียบสถิติวิจัย APA vs วิจัยไทย (TCI 1 &amp; จุฬาฯ)</button>
+      <button type="button" class="ai-chip" disabled onclick="askPresetQuestion('หามาตรวัดความเมตตากรุณาต่อตนเอง (Self-Compassion) หรือสติ (Mindfulness) ในวิทยานิพนธ์จุฬาฯ มีกี่ข้อ ค่าความเที่ยงเท่าไร?')">🧘 มาตรวัด Self-Compassion / Mindfulness ในจุฬาฯ</button>
+      <button type="button" class="ai-chip" disabled onclick="askPresetQuestion('งานวิจัยที่ศึกษา Executive Function หรือ Working Memory ใช้เครื่องมือและการวิเคราะห์สถิติแบบใดบ้าง?')">🧠 งานวิจัย Executive Function &amp; Working Memory</button>
+      <button type="button" class="ai-chip" disabled onclick="askPresetQuestion('แนวโน้มการทำ Open Science (Open Data, Preregistration, Power Analysis) ในงานวิจัยจิตวิทยาเป็นอย่างไร?')">📈 สถิติแนวโน้ม Open Science &amp; Power Analysis</button>
     </div>
 
     <div id="ai-messages" class="ai-messages">
@@ -941,10 +1012,11 @@
         type="text"
         id="ai-chat-input"
         class="ai-chat-input"
-        placeholder="พิมพ์คำถาม เช่น 'หามาตรวัดความซึมเศร้าในวัยรุ่น พร้อมค่า Cronbach alpha' หรือ 'งานวิจัยที่ใช้ SEM ในไทยมีสัดส่วนเท่าไร'..."
+        placeholder="🔒 ระบบ AI ปิดอยู่ — กรุณาเปิดสวิตช์ ON ด้านบนเพื่อเริ่มถาม-ตอบ"
         autocomplete="off"
+        disabled
       >
-      <button type="submit" id="ai-send-btn" class="ai-send-btn">
+      <button type="submit" id="ai-send-btn" class="ai-send-btn" disabled>
         <span>ส่งคำถาม</span>
         <span>➤</span>
       </button>
@@ -1053,6 +1125,7 @@
 // AI RESEARCH ASSISTANT (HYBRID LOCAL MAC MINI M5 PRO RAG + CLOUD API + IN-BROWSER FALLBACK)
 // ============================================================================
 const AI_STATE = {
+  enabled: false,
   serverUrl: '',
   serverOnline: false,
   localLlmAvailable: false,
@@ -1123,43 +1196,41 @@ function renderMarkdown(md) {
   return html;
 }
 
-function onAiEngineChange() {
-  const eng = document.getElementById('ai-engine-select').value;
-  const keyWrap = document.getElementById('ai-apikey-wrap');
-  const keyInput = document.getElementById('ai-apikey-input');
-  if (eng === 'gemini' || eng === 'openai') {
-    keyWrap.style.display = 'flex';
-    const saved = sessionStorage.getItem('ai_api_key_' + eng) || '';
-    keyInput.value = saved;
-    keyInput.placeholder = eng === 'gemini' ? 'วาง Google Gemini API Key (AIza...)' : 'วาง OpenAI API Key (sk-...)';
-  } else {
-    keyWrap.style.display = 'none';
-  }
-}
+async function onAiPowerToggle(isOn) {
+  const lbl = document.getElementById('ai-switch-label');
+  const dot = document.getElementById('ai-status-dot');
+  const txt = document.getElementById('ai-status-text');
+  const engSel = document.getElementById('ai-engine-select');
+  const scopeSel = document.getElementById('ai-scope-select');
 
-function saveAiKey(val) {
-  const eng = document.getElementById('ai-engine-select').value;
-  if (eng === 'gemini' || eng === 'openai') {
-    sessionStorage.setItem('ai_api_key_' + eng, val.trim());
+  if (!isOn) {
+    AI_STATE.enabled = false;
+    AI_STATE.serverOnline = false;
+    lbl.textContent = 'OFF';
+    lbl.className = 'ai-switch-badge';
+    dot.className = 'ai-status-dot off';
+    txt.textContent = 'ปิดใช้งาน AI (OFF)';
+    engSel.disabled = true;
+    scopeSel.disabled = true;
+    setChatControlsLocked(
+      true,
+      '🔒 ระบบ AI ปิดอยู่ — กรุณาเปิดสวิตช์ ON ด้านบนเพื่อเริ่มถาม-ตอบ',
+      '<span>ส่งคำถาม</span><span>➤</span>'
+    );
+    return;
   }
-}
 
-function toggleServerConfigModal() {
-  const bar = document.getElementById('ai-server-config-bar');
-  bar.style.display = bar.style.display === 'none' ? 'flex' : 'none';
-  document.getElementById('ai-server-url-input').value = AI_STATE.serverUrl;
-}
-
-async function applyCustomServerUrl() {
-  const val = document.getElementById('ai-server-url-input').value.trim().replace(/\/+$/, '');
-  if (val) {
-    localStorage.setItem('custom_rag_server_url', val);
-    AI_STATE.serverUrl = val;
-  } else {
-    localStorage.removeItem('custom_rag_server_url');
-  }
+  AI_STATE.enabled = true;
+  lbl.textContent = 'ON';
+  lbl.className = 'ai-switch-badge on';
+  engSel.disabled = false;
+  scopeSel.disabled = false;
   await initAiServerConnection();
-  document.getElementById('ai-server-config-bar').style.display = 'none';
+  if (AI_STATE.enabled && !AI_STATE.busy && AI_STATE.cooldownRemaining <= 0) {
+    setChatControlsLocked(false, DEFAULT_INPUT_PLACEHOLDER, '<span>ส่งคำถาม</span><span>➤</span>');
+    const input = document.getElementById('ai-chat-input');
+    if (input) input.focus();
+  }
 }
 
 async function probeServerHealth(baseUrl) {
@@ -1177,14 +1248,13 @@ async function probeServerHealth(baseUrl) {
 }
 
 async function initAiServerConnection() {
+  if (!AI_STATE.enabled) return;
   const dot = document.getElementById('ai-status-dot');
   const txt = document.getElementById('ai-status-text');
   dot.className = 'ai-status-dot';
   txt.textContent = 'กำลังเชื่อมต่อเซิร์ฟเวอร์ AI...';
 
   const candidates = [];
-  const customUrl = localStorage.getItem('custom_rag_server_url');
-  if (customUrl) candidates.push(customUrl);
 
   // 1. Check ai_config.json (updated automatically by start_ai_server.sh with Cloudflare Tunnel URL)
   try {
@@ -1208,6 +1278,7 @@ async function initAiServerConnection() {
   for (const url of candidates) {
     const health = await probeServerHealth(url);
     if (health && health.status === 'ok') {
+      if (!AI_STATE.enabled) return;
       AI_STATE.serverUrl = url;
       AI_STATE.serverOnline = true;
       AI_STATE.localLlmAvailable = !!(health.local_llm && health.local_llm.available);
@@ -1215,11 +1286,12 @@ async function initAiServerConnection() {
         AI_STATE.localModelName = health.local_llm.models[0].split('/').pop();
       }
       dot.className = 'ai-status-dot online';
-      txt.textContent = 'Online • Gemini 3.8 Flash (Low) Full-Text RAG';
+      txt.textContent = 'Online • Full-Text RAG Ready';
       return;
     }
   }
 
+  if (!AI_STATE.enabled) return;
   // Fallback if Mac mini tunnel is offline
   AI_STATE.serverOnline = false;
   dot.className = 'ai-status-dot fallback';
@@ -1227,7 +1299,7 @@ async function initAiServerConnection() {
 }
 
 function askPresetQuestion(q) {
-  if (AI_STATE.busy || AI_STATE.cooldownRemaining > 0) return;
+  if (!AI_STATE.enabled || AI_STATE.busy || AI_STATE.cooldownRemaining > 0) return;
   const input = document.getElementById('ai-chat-input');
   input.value = q;
   handleAiSubmit(new Event('submit'));
@@ -1523,33 +1595,39 @@ function setChatControlsLocked(locked, placeholderText, btnLabel) {
 
 function startCooldownCountdown(seconds) {
   AI_STATE.cooldownRemaining = seconds;
-  setChatControlsLocked(
-    true,
-    `⏳ กรุณารออีก ${AI_STATE.cooldownRemaining} วินาที จึงจะพิมพ์คำถามถัดไปได้`,
-    `<span>รอ ${AI_STATE.cooldownRemaining}s</span>`
-  );
+  if (AI_STATE.enabled) {
+    setChatControlsLocked(
+      true,
+      `⏳ กรุณารออีก ${AI_STATE.cooldownRemaining} วินาที จึงจะพิมพ์คำถามถัดไปได้`,
+      `<span>รอ ${AI_STATE.cooldownRemaining}s</span>`
+    );
+  }
   const timer = setInterval(() => {
     AI_STATE.cooldownRemaining -= 1;
     if (AI_STATE.cooldownRemaining > 0) {
-      setChatControlsLocked(
-        true,
-        `⏳ กรุณารออีก ${AI_STATE.cooldownRemaining} วินาที จึงจะพิมพ์คำถามถัดไปได้`,
-        `<span>รอ ${AI_STATE.cooldownRemaining}s</span>`
-      );
+      if (AI_STATE.enabled) {
+        setChatControlsLocked(
+          true,
+          `⏳ กรุณารออีก ${AI_STATE.cooldownRemaining} วินาที จึงจะพิมพ์คำถามถัดไปได้`,
+          `<span>รอ ${AI_STATE.cooldownRemaining}s</span>`
+        );
+      }
     } else {
       clearInterval(timer);
       AI_STATE.cooldownRemaining = 0;
       AI_STATE.busy = false;
-      setChatControlsLocked(false, DEFAULT_INPUT_PLACEHOLDER, '<span>ส่งคำถาม</span><span>➤</span>');
-      const input = document.getElementById('ai-chat-input');
-      if (input) input.focus();
+      if (AI_STATE.enabled) {
+        setChatControlsLocked(false, DEFAULT_INPUT_PLACEHOLDER, '<span>ส่งคำถาม</span><span>➤</span>');
+        const input = document.getElementById('ai-chat-input');
+        if (input) input.focus();
+      }
     }
   }, 1000);
 }
 
 async function handleAiSubmit(e) {
   if (e) e.preventDefault();
-  if (AI_STATE.busy || AI_STATE.cooldownRemaining > 0) return;
+  if (!AI_STATE.enabled || AI_STATE.busy || AI_STATE.cooldownRemaining > 0) return;
 
   const input = document.getElementById('ai-chat-input');
   const query = input.value.trim();
@@ -1640,8 +1718,7 @@ async function handleAiSubmit(e) {
   }
 }
 
-// Initialize AI connection on page load
-initAiServerConnection();
+// AI starts in OFF state until the user toggles the switch ON.
 </script>
 
 </body>
