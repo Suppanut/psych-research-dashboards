@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Psychological Research Practices &amp; Psychometric Scales Analytics Portal</title>
+  <title>Psychological Research Practices, Psychometric Scales &amp; Chula Faculty Works Portal</title>
   <style>
     :root {
       --bg: #f8fafc;
@@ -42,7 +42,7 @@
       border-bottom: 4px solid #38bdf8;
     }
     .hero-inner {
-      max-width: 1240px;
+      max-width: 1380px;
       margin: 0 auto;
     }
     .hero-badges {
@@ -73,7 +73,7 @@
       max-width: 920px;
     }
     .main-container {
-      max-width: 1240px;
+      max-width: 1380px;
       margin: 0 auto;
       padding: 32px 24px 56px;
     }
@@ -88,7 +88,7 @@
     }
     .cards-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(460px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(365px, 1fr));
       gap: 24px;
       margin-bottom: 36px;
     }
@@ -121,6 +121,10 @@
       height: 6px;
       background: linear-gradient(90deg, #1e40af, #db2777);
     }
+    .card-banner-fuchsia {
+      height: 6px;
+      background: linear-gradient(90deg, #581c45, #be185d, #ec4899);
+    }
     .card-body {
       padding: 26px 28px 22px;
     }
@@ -141,6 +145,7 @@
     .tag-rose { background: var(--rose-soft); color: #be123c; border: 1px solid #fecdd3; }
     .tag-purple { background: var(--purple-soft); color: #6b21a8; border: 1px solid #e9d5ff; }
     .tag-amber { background: var(--amber-soft); color: #b45309; border: 1px solid #fde68a; }
+    .tag-fuchsia { background: #fdf2f8; color: #9d174d; border: 1px solid #fbcfe8; }
 
     .dash-card h2 {
       font-size: 21px;
@@ -184,16 +189,17 @@
     .feature-list li {
       font-size: 13.5px;
       color: #334155;
-      padding: 5px 0;
-      display: flex;
-      align-items: flex-start;
-      gap: 8px;
+      padding: 5px 0 5px 20px;
+      position: relative;
+      display: block;
     }
     .feature-list li::before {
       content: "✓";
       font-weight: 800;
       color: var(--emerald);
-      flex-shrink: 0;
+      position: absolute;
+      left: 0;
+      top: 5px;
     }
     .card-footer {
       padding: 16px 28px 22px;
@@ -229,6 +235,12 @@
     }
     .btn-launch-rose:hover {
       background: #1e3a8a;
+    }
+    .btn-launch-fuchsia {
+      background: #9d174d;
+    }
+    .btn-launch-fuchsia:hover {
+      background: #831843;
     }
     .summary-box {
       background: var(--card);
@@ -808,12 +820,16 @@
     font-size: 11px;
     font-weight: 700;
   }
+  .agy-portal-bar a,
+  .agy-portal-bar a:hover {
+    text-decoration: none;
+  }
 </style>
 <div class="agy-portal-bar">
   <div class="agy-portal-inner">
     <a href="index.html" class="agy-portal-brand">
       <span class="agy-dot"></span>
-      <span>Psych Research &amp; Psychometric Scales Analytics Portal</span>
+      <span>Psych Research, Scales &amp; Faculty Analytics Portal</span>
     </a>
     <div class="agy-portal-links">
       <a href="index.html" class="agy-nav-link active">🏠 หน้าแรก (Portal Home)</a>
@@ -823,6 +839,9 @@
       <a href="chula_psych_scales_corpus_dashboard.html" class="agy-nav-link">
         📋 คลังมาตรวัดจิตวิทยา จุฬาฯ <span class="agy-nav-badge" data-sync="chula-badge">768 เล่ม | 2,534 มาตรวัด</span>
       </a>
+      <a href="chula_faculty_works_dashboard.html" class="agy-nav-link">
+        🎓 ผลงานวิชาการคณาจารย์ จุฬาฯ <span class="agy-nav-badge" data-sync="faculty-badge">1,415 ผลงาน | 35 ท่าน</span>
+      </a>
     </div>
   </div>
 </div>
@@ -831,15 +850,16 @@
 <header class="hero">
   <div class="hero-inner">
     <div class="hero-badges">
-      <span class="hero-badge">📊 Interactive Research Dashboards</span>
+      <span class="hero-badge">📊 3 Interactive Research Dashboards</span>
       <span class="hero-badge" data-sync="hero-prp">🌐 N = 52,849 Psychological Works</span>
       <span class="hero-badge" data-sync="hero-chula">🏛️ 768 Chula Graduate Theses &amp; 2,534 Psychometric Scales</span>
+      <span class="hero-badge" data-sync="hero-faculty">🎓 1,415 Faculty Works (35 Current Faculty)</span>
       <a href="#ai-assistant" class="hero-badge" style="background: rgba(56, 189, 248, 0.25); border-color: #38bdf8; color: #ffffff; text-decoration: none;">🤖 AI Research Assistant (Full-Text RAG) ↓</a>
     </div>
-    <h1>ระบบฐานข้อมูลและแดชบอร์ดวิเคราะห์แนวปฏิบัติการวิจัยและมาตรวัดทางจิตวิทยา</h1>
+    <h1>ระบบฐานข้อมูลและแดชบอร์ดวิเคราะห์งานวิจัย มาตรวัด และผลงานคณาจารย์ทางจิตวิทยา</h1>
     <p>
-      รวบรวมแดชบอร์ดวิเคราะห์วิธีวิทยาการวิจัย สถิติที่ใช้ในงานวิจัยทางจิตวิทยาทั้งระดับนานาชาติและในประเทศไทย (ค.ศ. 1995–2026)
-      พร้อมคลังข้อมูลมาตรวัดและเครื่องมือวิจัยทางจิตวิทยาจากวิทยานิพนธ์ระดับบัณฑิตศึกษา จุฬาลงกรณ์มหาวิทยาลัย
+      รวบรวมแดชบอร์ดวิเคราะห์วิธีวิทยาการวิจัยและสถิติในงานวิจัยจิตวิทยานานาชาติและไทย (ค.ศ. 1995–2026)
+      คลังมาตรวัดทางจิตวิทยาจากวิทยานิพนธ์บัณฑิตศึกษา และฐานข้อมูลผลงานตีพิมพ์–วิทยานิพนธ์ของคณาจารย์ คณะจิตวิทยา จุฬาลงกรณ์มหาวิทยาลัย
     </p>
   </div>
 </header>
@@ -931,6 +951,50 @@
       <div class="card-footer">
         <a href="chula_psych_scales_corpus_dashboard.html" class="btn-launch btn-launch-rose">
           <span data-sync="btn-chula">เปิดแดชบอร์ดคลังมาตรวัดทางจิตวิทยา จุฬาฯ (2,534 มาตรวัด)</span>
+          <span>→</span>
+        </a>
+      </div>
+    </article>
+
+    <!-- DASHBOARD 3: CHULA PSYCHOLOGY FACULTY PUBLICATIONS & THESES -->
+    <article class="dash-card">
+      <div>
+        <div class="card-banner-fuchsia"></div>
+        <div class="card-body">
+          <div class="card-tag-row">
+            <span class="tag tag-fuchsia">Dashboard 3 • Faculty Works &amp; Lineage</span>
+            <span class="tag tag-purple" data-sync="tag-fac-people">35 คณาจารย์ปัจจุบัน</span>
+            <span class="tag tag-emerald" data-sync="tag-fac-works">N = 1,415 ผลงาน (1985–2026)</span>
+          </div>
+          <h2>ผลงานวิชาการ บทความวิจัย และวิทยานิพนธ์ของคณาจารย์ คณะจิตวิทยา จุฬาฯ</h2>
+          <p class="desc">
+            ฐานข้อมูลผลงานของคณาจารย์ประจำปัจจุบัน ทั้ง 35 ท่าน (category=50) ครอบคลุมบทความวิจัยจาก Scopus/TCI/OA (<span data-sync="fac-papers-inline">709</span> เรื่อง)
+            และวิทยานิพนธ์ที่อาจารย์ที่ปรึกษา/วิทยานิพนธ์ของคณาจารย์เอง (<span data-sync="fac-theses-inline">706</span> เล่ม)
+          </p>
+          <div class="kpi-mini-grid">
+            <div class="kpi-mini">
+              <div class="num" style="color: #9d174d;" data-sync="fac-works">1,415</div>
+              <div class="lbl">ผลงานทั้งหมด (Works)</div>
+            </div>
+            <div class="kpi-mini">
+              <div class="num" style="color: #4338ca;" data-sync="fac-split">709 / 706</div>
+              <div class="lbl">บทความ / วิทยานิพนธ์</div>
+            </div>
+            <div class="kpi-mini">
+              <div class="num" style="color: var(--emerald);" data-sync="fac-faculty">35 / 9</div>
+              <div class="lbl">คณาจารย์ / แขนงวิชา</div>
+            </div>
+          </div>
+          <ul class="feature-list">
+            <li>รวมผลงาน Scopus (<span data-sync="fac-scopus">277</span>), TCI (<span data-sync="fac-tci">301</span>), ยอดอ้างอิงรวม <span data-sync="fac-citations">6,671</span> ครั้ง พร้อมโปรไฟล์รายบุคคล 9 แขนงวิชา และ 12 ธีมวิจัย</li>
+            <li>ติดตามวิทยานิพนธ์ของคณาจารย์เอง (<span data-sync="fac-own">55</span> เล่ม) และสายสัมพันธ์อาจารย์ที่ปรึกษา–ศิษย์ (<span data-sync="fac-lineage">17</span> คู่)</li>
+            <li>รองรับมือถือ/ออฟไลน์เต็มรูปแบบ พร้อม Catalog กรองข้อมูล ลิงก์ DOI/OA PDF บนเว็บ (Chula Digiverse / Publisher) และส่งออก CSV/JSON</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card-footer">
+        <a href="chula_faculty_works_dashboard.html" class="btn-launch btn-launch-fuchsia">
+          <span data-sync="btn-faculty">เปิดแดชบอร์ดผลงานวิชาการคณาจารย์ จุฬาฯ (N = 1,415)</span>
           <span>→</span>
         </a>
       </div>
@@ -1051,7 +1115,7 @@
     const res1 = await fetch('psych_research_practices_dashboard.html');
     if (res1.ok) {
       const txt1 = await res1.text();
-      const mCohorts = txt1.match(/const COHORTS\s*=\s*(\\{.*?\});/);
+      const mCohorts = txt1.match(/const COHORTS\s*=\s*(\{.*?\});/);
       if (mCohorts) {
         const cohorts = JSON.parse(mCohorts[1]);
         if (cohorts && cohorts.all) {
@@ -1075,7 +1139,7 @@
     const res2 = await fetch('chula_psych_scales_corpus_dashboard.html');
     if (res2.ok) {
       const txt2 = await res2.text();
-      const mTitle = txt2.match(/<title>.*?N\s*=\s*([\d,]+)\s*วิทยานิพนธ์\s*\|\s*([\d,]+)\s*มาตรวัด.*?</title>/);
+      const mTitle = txt2.match(/<title>.*?N\s*=\s*([\d,]+)\s*วิทยานิพนธ์\s*\|\s*([\d,]+)\s*มาตรวัด.*?<\/title>/);
       if (mTitle) {
         const nTh = mTitle[1];
         const nSc = mTitle[2];
@@ -1089,6 +1153,37 @@
         setTxt('btn-chula', `เปิดแดชบอร์ดคลังมาตรวัดทางจิตวิทยา จุฬาฯ (${nSc} มาตรวัด)`);
         setTxt('tbl-chula-theses', nTh);
         setTxt('tbl-chula-scales', nSc);
+      }
+    }
+  } catch (_) {}
+
+  try {
+    const res3 = await fetch('chula_faculty_works_dashboard.html');
+    if (res3.ok) {
+      const txt3 = await res3.text();
+      const mMeta = txt3.match(/const DATA\s*=\s*\{"meta":(\{[^}]+\})/);
+      if (mMeta) {
+        const m = JSON.parse(mMeta[1]);
+        const nWorks = Number(m.total_unified_works).toLocaleString();
+        const nPapers = Number(m.total_papers).toLocaleString();
+        const nTheses = Number(m.total_thesis_works).toLocaleString();
+        const nFac = Number(m.total_faculty).toLocaleString();
+        const nAreas = Number(m.total_sub_areas).toLocaleString();
+        setTxt('faculty-badge', `${nWorks} ผลงาน | ${nFac} ท่าน`);
+        setTxt('hero-faculty', `🎓 ${nWorks} Faculty Works (${nFac} Current Faculty)`);
+        setTxt('tag-fac-people', `${nFac} คณาจารย์ปัจจุบัน`);
+        setTxt('tag-fac-works', `N = ${nWorks} ผลงาน (${m.min_year}–${m.max_year})`);
+        setTxt('fac-papers-inline', nPapers);
+        setTxt('fac-theses-inline', nTheses);
+        setTxt('fac-works', nWorks);
+        setTxt('fac-split', `${nPapers} / ${nTheses}`);
+        setTxt('fac-faculty', `${nFac} / ${nAreas}`);
+        setTxt('fac-scopus', Number(m.papers_scopus).toLocaleString());
+        setTxt('fac-tci', Number(m.papers_tci).toLocaleString());
+        setTxt('fac-citations', Number(m.total_best_citations).toLocaleString());
+        setTxt('fac-own', Number(m.theses_faculty_own).toLocaleString());
+        setTxt('fac-lineage', Number(m.mentorship_lineage_links).toLocaleString());
+        setTxt('btn-faculty', `เปิดแดชบอร์ดผลงานวิชาการคณาจารย์ จุฬาฯ (N = ${nWorks})`);
       }
     }
   } catch (_) {}
