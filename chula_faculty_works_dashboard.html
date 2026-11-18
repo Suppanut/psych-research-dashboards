@@ -671,7 +671,7 @@
     <div class="hero-top">
       <div>
         <h1>Chulalongkorn Psychology — Faculty Publications, Theses &amp; Dissertations</h1>
-        <div class="hero-sub" id="hero-subtitle">35 Current Faculty (category=50) • 709 Published Papers (277 Scopus, 301 TCI) • 706 Theses &amp; Dissertations (55 Faculty Own, 17 Mentorship Lineage) • Updated 2026-11-15</div>
+        <div class="hero-sub" id="hero-subtitle">35 Current Faculty • 709 Published Papers (277 Scopus, 301 TCI) • 706 Theses &amp; Dissertations (55 Faculty Own, 17 Mentorship Lineage) • Updated 2026-11-15</div>
       </div>
       <div class="hero-actions js-only">
         <button class="btn btn-ghost" onclick="exportQueueCSV()">Export Filtered CSV (utf-8-sig)</button>
@@ -744,7 +744,7 @@
     <div class="kpi-card">
       <div class="kpi-label">Active Faculty Roster</div>
       <div class="kpi-val">34 / 35</div>
-      <div class="kpi-sub">9 Academic Sub-Areas (category=50)</div>
+      <div class="kpi-sub">9 Academic Sub-Areas</div>
     </div>
     <div class="kpi-card emerald">
       <div class="kpi-label">Filtered Catalog Works</div>
@@ -1211,7 +1211,7 @@ function renderKPIs(works) {
     <div class="kpi-card">
       <div class="kpi-label">Active Faculty Roster</div>
       <div class="kpi-val">${activeFids.size} / ${DATA.meta.total_faculty}</div>
-      <div class="kpi-sub">${DATA.meta.total_sub_areas} Academic Sub-Areas (category=50)</div>
+      <div class="kpi-sub">${DATA.meta.total_sub_areas} Academic Sub-Areas</div>
     </div>
     <div class="kpi-card emerald">
       <div class="kpi-label">Filtered Catalog Works</div>
@@ -2172,7 +2172,7 @@ function init() {
     STATE.ymax = DATA.meta.max_year;
 
     document.getElementById("hero-subtitle").textContent =
-      `${DATA.meta.total_faculty} Current Faculty (category=50) • ${DATA.meta.total_papers} Published Papers (${DATA.meta.papers_scopus} Scopus, ${DATA.meta.papers_tci} TCI) • ${DATA.meta.total_thesis_works} Theses & Dissertations (${DATA.meta.theses_faculty_own} Faculty Own, ${DATA.meta.mentorship_lineage_links} Mentorship Lineage) • Updated ${DATA.meta.generated_at.slice(0, 10)}`;
+      `${DATA.meta.total_faculty} Current Faculty • ${DATA.meta.total_papers} Published Papers (${DATA.meta.papers_scopus} Scopus, ${DATA.meta.papers_tci} TCI) • ${DATA.meta.total_thesis_works} Theses & Dissertations (${DATA.meta.theses_faculty_own} Faculty Own, ${DATA.meta.mentorship_lineage_links} Mentorship Lineage) • Updated ${DATA.meta.generated_at.slice(0, 10)}`;
 
     const areaSel = document.getElementById("g-area");
     DATA.sub_areas.forEach(sa => {
