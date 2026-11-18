@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Psychological Research Practices, Psychometric Scales &amp; Chula Faculty Works Portal</title>
+  <title>Psychological &amp; Social Sciences Research Practices, Psychometric Scales &amp; Chula Faculty Works Portal</title>
   <style>
     :root {
       --bg: #f8fafc;
@@ -88,11 +88,11 @@
     }
     .cards-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(365px, 1fr));
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 24px;
       margin-bottom: 36px;
     }
-    @media (max-width: 560px) {
+    @media (max-width: 900px) {
       .cards-grid {
         grid-template-columns: 1fr;
       }
@@ -124,6 +124,10 @@
     .card-banner-fuchsia {
       height: 6px;
       background: linear-gradient(90deg, #581c45, #be185d, #ec4899);
+    }
+    .card-banner-teal {
+      height: 6px;
+      background: linear-gradient(90deg, #0f766e, #0d9488, #be185d);
     }
     .card-body {
       padding: 26px 28px 22px;
@@ -242,6 +246,12 @@
     .btn-launch-fuchsia:hover {
       background: #831843;
     }
+    .btn-launch-teal {
+      background: #0f766e;
+    }
+    .btn-launch-teal:hover {
+      background: #115e59;
+    }
     .summary-box {
       background: var(--card);
       border: 1px solid var(--border);
@@ -279,468 +289,32 @@
       font-size: 13px;
       color: var(--muted);
     }
-    /* AI CHAT ASSISTANT STYLES */
-    .ai-chat-section {
-      background: var(--card);
-      border: 1px solid #cbd5e1;
-      border-radius: 16px;
-      box-shadow: 0 8px 30px rgba(15, 23, 42, 0.07);
-      margin-bottom: 36px;
-      overflow: hidden;
-    }
-    .ai-chat-header {
-      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 65%, #312e81 100%);
-      color: #ffffff;
-      padding: 18px 24px;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      border-bottom: 3px solid #38bdf8;
-    }
-    .ai-chat-title-wrap {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .ai-icon-box, .ai-avatar-icon {
-      width: 42px;
-      height: 42px;
-      border-radius: 10px;
-      background: rgba(56, 189, 248, 0.18);
-      border: 1px solid rgba(56, 189, 248, 0.45);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 21px;
-      flex-shrink: 0;
-    }
-    .ai-chat-title-wrap h2, .ai-chat-title-wrap h3 {
-      font-size: 17px;
-      font-weight: 800;
-      margin: 0;
-      color: #ffffff;
-    }
-    .ai-chat-title-wrap p {
-      font-size: 12.5px;
-      color: #cbd5e1;
-      margin: 2px 0 0;
-    }
-    .ai-status-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(15, 23, 42, 0.55);
-      border: 1px solid rgba(255, 255, 255, 0.22);
-      padding: 5px 12px;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: 600;
-      color: #e2e8f0;
-    }
-    .ai-status-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #fbbf24;
-    }
-    .ai-status-dot.online {
-      background: #22c55e;
-      box-shadow: 0 0 8px #22c55e;
-    }
-    .ai-status-dot.fallback {
-      background: #38bdf8;
-      box-shadow: 0 0 8px #38bdf8;
-    }
-    .ai-status-dot.off {
-      background: #94a3b8;
-      box-shadow: none;
-    }
-    /* iOS-style ON/OFF Toggle Switch */
-    .ai-switch-group {
-      margin-left: auto;
-      display: inline-flex;
-      align-items: center;
-      gap: 9px;
-      font-weight: 700;
-      color: #334155;
-      user-select: none;
-    }
-    .ai-switch {
-      position: relative;
-      display: inline-block;
-      width: 50px;
-      height: 28px;
-      cursor: pointer;
-    }
-    .ai-switch input {
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
-    .ai-switch-slider {
-      position: absolute;
-      inset: 0;
-      background-color: #e2e8f0;
-      border: 1.5px solid #cbd5e1;
-      border-radius: 999px;
-      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .ai-switch-slider::before {
-      position: absolute;
-      content: "";
-      height: 22px;
-      width: 22px;
-      left: 2px;
-      top: 1.5px;
-      background-color: #ffffff;
-      border-radius: 50%;
-      box-shadow: 0 2px 4px rgba(15, 23, 42, 0.22);
-      transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .ai-switch input:checked + .ai-switch-slider {
-      background-color: #00c853;
-      border-color: #00b248;
-    }
-    .ai-switch input:checked + .ai-switch-slider::before {
-      transform: translateX(21px);
-    }
-    .ai-switch-badge {
-      font-size: 12px;
-      font-weight: 800;
-      min-width: 32px;
-      color: #64748b;
-    }
-    .ai-switch-badge.on {
-      color: #059669;
-    }
-    .ai-controls-bar {
-      background: #f1f5f9;
-      padding: 10px 24px;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 14px;
-      font-size: 12.5px;
-    }
-    .ai-ctrl-group {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-weight: 600;
-      color: #334155;
-    }
-    .ai-select {
-      background: #ffffff;
-      color: #0f172a;
-      border: 1px solid #cbd5e1;
-      padding: 5px 10px;
-      border-radius: 8px;
-      font-size: 12.5px;
-      font-weight: 600;
-      font-family: inherit;
-      cursor: pointer;
-    }
-    .ai-key-input {
-      min-width: 220px;
-      padding: 5px 10px;
-      border: 1px solid #cbd5e1;
-      border-radius: 8px;
-      font-size: 12.5px;
-      font-family: monospace;
-      background: #ffffff;
-    }
-    .ai-Starter-chips, .ai-prompts-bar {
-      padding: 10px 24px;
-      background: #f8fafc;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 8px;
-    }
-    .ai-chip, .ai-prompt-chip {
-      background: #ffffff;
-      border: 1px solid #cbd5e1;
-      color: #1e293b;
-      padding: 5px 12px;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.15s ease;
-      font-family: inherit;
-    }
-    .ai-chip:hover, .ai-prompt-chip:hover {
-      background: var(--blue-soft);
-      border-color: var(--blue);
-      color: var(--blue-dark);
-    }
-    .ai-messages {
-      max-height: 520px;
-      min-height: 240px;
-      overflow-y: auto;
-      padding: 20px 24px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      background: #ffffff;
-    }
-    .ai-msg {
-      display: flex;
-      gap: 12px;
-      align-items: flex-start;
-    }
-    .ai-msg.user {
-      flex-direction: row-reverse;
-    }
-    .ai-avatar, .ai-msg-avatar {
-      width: 34px;
-      height: 34px;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 16px;
-      flex-shrink: 0;
-      font-weight: 700;
-    }
-    .ai-msg.assistant .ai-avatar, .ai-msg.assistant .ai-msg-avatar {
-      background: #eff6ff;
-      color: #1d4ed8;
-      border: 1px solid #bfdbfe;
-    }
-    .ai-msg.user .ai-avatar, .ai-msg.user .ai-msg-avatar {
-      background: #1e293b;
-      color: #ffffff;
-    }
-    .ai-bubble-wrap {
-      max-width: 88%;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-    .ai-msg.user .ai-bubble-wrap {
-      align-items: flex-end;
-    }
-    .ai-bubble, .ai-msg-bubble {
-      padding: 14px 18px;
+    .ai-disclaimer-banner {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 5px solid #f59e0b;
       border-radius: 12px;
+      padding: 15px 20px;
+      margin-bottom: 26px;
+      color: #78350f;
       font-size: 13.8px;
-      line-height: 1.65;
+      line-height: 1.6;
+      box-shadow: 0 2px 8px rgba(245, 158, 11, 0.08);
     }
-    .ai-msg.assistant .ai-bubble, .ai-msg.assistant .ai-msg-bubble {
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      color: #0f172a;
-    }
-    .ai-msg.user .ai-bubble, .ai-msg.user .ai-msg-bubble {
-      background: #2563eb;
-      color: #ffffff;
-      font-weight: 500;
-    }
-    .ai-bubble h3, .ai-bubble h4, .ai-msg-bubble h3, .ai-msg-bubble h4 {
-      margin: 10px 0 6px;
-      font-size: 14.5px;
-      color: #1e3a8a;
-    }
-    .ai-bubble p, .ai-msg-bubble p {
-      margin: 4px 0;
-    }
-    .ai-bubble hr {
-      border: none;
-      border-top: 1px solid #e2e8f0;
-      margin: 10px 0;
-    }
-    .ai-bubble ul, .ai-bubble ol, .ai-msg-bubble ul, .ai-msg-bubble ol {
-      padding-left: 20px;
-      margin: 6px 0;
-    }
-    .ai-bubble li, .ai-msg-bubble li {
-      margin: 4px 0;
-    }
-    .ai-bubble code, .ai-msg-bubble code {
-      background: #e2e8f0;
-      padding: 1px 5px;
-      border-radius: 4px;
-      font-size: 12.5px;
-    }
-    .ai-meta-line {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 6px;
-      font-size: 11.5px;
-      color: #64748b;
-      padding-left: 4px;
-    }
-    /* Animated Loading Indicator (...) */
-    .ai-loading-box {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-    .ai-spinner {
-      width: 16px;
-      height: 16px;
-      border: 2.5px solid #bfdbfe;
-      border-top-color: #2563eb;
-      border-radius: 50%;
-      animation: aiSpin 0.8s linear infinite;
-      flex-shrink: 0;
-    }
-    @keyframes aiSpin {
-      to { transform: rotate(360deg); }
-    }
-    .ai-typing-dots {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      margin-left: 4px;
-      vertical-align: middle;
-    }
-    .ai-typing-dots span {
-      width: 6px;
-      height: 6px;
-      background: #2563eb;
-      border-radius: 50%;
-      display: inline-block;
-      animation: aiDotBounce 1.2s infinite ease-in-out both;
-    }
-    .ai-typing-dots span:nth-child(1) { animation-delay: -0.32s; }
-    .ai-typing-dots span:nth-child(2) { animation-delay: -0.16s; }
-    .ai-typing-dots span:nth-child(3) { animation-delay: 0s; }
-    @keyframes aiDotBounce {
-      0%, 80%, 100% { transform: scale(0.45); opacity: 0.35; }
-      40% { transform: scale(1.1); opacity: 1; }
-    }
-    .ai-dots-text {
-      display: inline-block;
-      min-width: 18px;
+    .ai-disclaimer-banner .disc-title {
       font-weight: 800;
-      color: #2563eb;
-      text-align: left;
-    }
-    .ai-elapsed-badge {
-      background: #eff6ff;
-      color: #1d4ed8;
-      border: 1px solid #bfdbfe;
-      font-size: 11.5px;
-      font-weight: 700;
-      padding: 2px 8px;
-      border-radius: 999px;
-      font-variant-numeric: tabular-nums;
-    }
-    .ai-sources-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      font-size: 14.5px;
+      color: #92400e;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
       gap: 8px;
-      margin-top: 12px;
-      padding-top: 10px;
-      border-top: 1px dashed #cbd5e1;
     }
-    .ai-source-card {
-      background: #ffffff;
-      border: 1px solid #cbd5e1;
-      border-radius: 8px;
-      padding: 9px 12px;
-      font-size: 12px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 5px;
-    }
-    .ai-source-badge {
-      font-size: 10.5px;
-      font-weight: 700;
-      color: #1d4ed8;
-      background: #eff6ff;
-      padding: 2px 7px;
-      border-radius: 4px;
-      display: inline-block;
-      width: fit-content;
-    }
-    .ai-source-badge.scale {
-      color: #be123c;
-      background: #fff1f2;
-    }
-    .ai-source-title {
-      font-weight: 700;
-      color: #0f172a;
-      line-height: 1.35;
-    }
-    .ai-source-meta {
-      color: #475569;
-      font-size: 11.5px;
-    }
-    .ai-source-link {
-      color: #2563eb;
-      font-weight: 700;
-      text-decoration: none;
-      font-size: 11.5px;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-    }
-    .ai-source-link:hover {
-      text-decoration: underline;
-    }
-    .ai-input-bar {
-      padding: 14px 24px;
-      background: #f8fafc;
-      border-top: 1px solid var(--border);
-      display: flex;
-      gap: 10px;
-      align-items: center;
-    }
-    .ai-chat-input {
-      flex: 1;
-      padding: 11px 16px;
-      border: 1px solid #cbd5e1;
-      border-radius: 10px;
-      font-size: 14px;
-      font-family: inherit;
-      outline: none;
-      transition: border-color 0.15s;
-    }
-    .ai-chat-input:focus {
-      border-color: var(--blue);
-      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
-    }
-    .ai-chat-input:disabled {
-      background: #f1f5f9;
-      color: #64748b;
-      cursor: not-allowed;
-    }
-    .ai-chip:disabled, .ai-prompt-chip:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-      pointer-events: none;
-    }
-    .ai-send-btn {
-      background: var(--blue);
-      color: #ffffff;
-      border: none;
-      padding: 11px 22px;
-      border-radius: 10px;
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-      font-family: inherit;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: background 0.15s;
-    }
-    .ai-send-btn:hover {
-      background: var(--blue-dark);
-    }
-    .ai-send-btn:disabled {
-      background: #94a3b8;
-      cursor: not-allowed;
+    .ai-disclaimer-banner .disc-en {
+      display: block;
+      margin-top: 4px;
+      font-size: 12.6px;
+      color: #92400e;
     }
   </style>
 </head>
@@ -836,6 +410,9 @@
       <a href="psych_research_practices_dashboard.html" class="agy-nav-link">
         📊 Research Practices &amp; Stats <span class="agy-nav-badge" data-sync="prp-badge">N = 52,849</span>
       </a>
+      <a href="tci1_social_sciences_dashboard.html" class="agy-nav-link">
+        🏛️ TCI 1 Social Sci <span class="agy-nav-badge" data-sync="tci-ss-badge">N = 49,345 | 147 วารสาร</span>
+      </a>
       <a href="chula_psych_scales_corpus_dashboard.html" class="agy-nav-link">
         📋 คลังมาตรวัดจิตวิทยา จุฬาฯ <span class="agy-nav-badge" data-sync="chula-badge">768 เล่ม | 2,534 มาตรวัด</span>
       </a>
@@ -850,21 +427,33 @@
 <header class="hero">
   <div class="hero-inner">
     <div class="hero-badges">
-      <span class="hero-badge">📊 3 Interactive Research Dashboards</span>
+      <span class="hero-badge">📊 4 Interactive Research Dashboards</span>
       <span class="hero-badge" data-sync="hero-prp">🌐 N = 52,849 Psychological Works</span>
-      <span class="hero-badge" data-sync="hero-chula">🏛️ 768 Chula Graduate Theses &amp; 2,534 Psychometric Scales</span>
+      <span class="hero-badge" data-sync="hero-tci-ss">🏛️ N = 49,345 TCI Tier 1 Social Sciences (147 Journals)</span>
+      <span class="hero-badge" data-sync="hero-chula">📋 768 Chula Graduate Theses &amp; 2,534 Psychometric Scales</span>
       <span class="hero-badge" data-sync="hero-faculty">🎓 1,415 Faculty Works (35 Current Faculty)</span>
-      <a href="#ai-assistant" class="hero-badge" style="background: rgba(56, 189, 248, 0.25); border-color: #38bdf8; color: #ffffff; text-decoration: none;">🤖 AI Research Assistant (Full-Text RAG) ↓</a>
+      <span class="hero-badge" style="background: rgba(245, 158, 11, 0.24); border-color: rgba(251, 191, 36, 0.6); color: #fef3c7;">⚠️ สร้างและประมวลผลโดย AI ทั้งระบบ (AI-Generated • อาจมีข้อผิดพลาดได้)</span>
     </div>
-    <h1>ระบบฐานข้อมูลและแดชบอร์ดวิเคราะห์งานวิจัย มาตรวัด และผลงานคณาจารย์ทางจิตวิทยา</h1>
+    <h1>ระบบฐานข้อมูลและแดชบอร์ดวิเคราะห์งานวิจัย มาตรวัด และผลงานคณาจารย์ทางจิตวิทยาและสังคมศาสตร์</h1>
     <p>
-      รวบรวมแดชบอร์ดวิเคราะห์วิธีวิทยาการวิจัยและสถิติในงานวิจัยจิตวิทยานานาชาติและไทย (ค.ศ. 1995–2026)
-      คลังมาตรวัดทางจิตวิทยาจากวิทยานิพนธ์บัณฑิตศึกษา และฐานข้อมูลผลงานตีพิมพ์–วิทยานิพนธ์ของคณาจารย์ คณะจิตวิทยา จุฬาลงกรณ์มหาวิทยาลัย
+      รวบรวม 4 แดชบอร์ดเชิงโต้ตอบสำหรับวิเคราะห์วิธีวิทยาการวิจัยและสถิติในงานวิจัยจิตวิทยานานาชาติและไทย (ค.ศ. 1995–2026)
+      ฐานข้อมูลวิจัยไทย TCI กลุ่ม 1 สาขาสังคมศาสตร์ คลังมาตรวัดทางจิตวิทยาจากวิทยานิพนธ์บัณฑิตศึกษา และฐานข้อมูลผลงานวิชาการของคณาจารย์ คณะจิตวิทยา จุฬาลงกรณ์มหาวิทยาลัย
     </p>
   </div>
 </header>
 
 <main class="main-container">
+  <div class="ai-disclaimer-banner" role="note" aria-label="AI Disclaimer">
+    <div class="disc-title">⚠️ ข้อควรทราบ: ระบบ ข้อมูล และแดชบอร์ดทั้งหมดสร้างและประมวลผลโดย AI — AI สามารถทำผิดพลาดได้</div>
+    <div>
+      การรวบรวมข้อมูล การสกัดข้อความฉบับเต็ม/OCR การจัดหมวดหมู่สถิติวิเคราะห์ มาตรวัด เครือข่ายผลงาน รวมถึงการเขียนโค้ดและสร้างแดชบอร์ดทั้งหมดในพอร์ทัลนี้ดำเนินการโดยระบบปัญญาประดิษฐ์ (AI) อัตโนมัติ
+      <strong>ข้อมูลที่แสดงจึงอาจมีความคลาดเคลื่อน การตีความผิดพลาด หรือตกหล่นได้</strong> กรุณาตรวจสอบความถูกต้องกับบทความวิจัยหรือวิทยานิพนธ์ต้นฉบับทุกครั้งก่อนนำไปใช้อ้างอิงทางวิชาการ
+      <span class="disc-en">
+        <strong>AI-Generated Portal Disclaimer:</strong> Everything in this portal—data harvesting, OCR/text extraction, statistical/scale classification, and web dashboards—was built and processed by AI. AI can make mistakes; please verify against original source documents before citing.
+      </span>
+    </div>
+  </div>
+
   <div class="section-title">เลือกแดชบอร์ดที่ต้องการสืบค้นและวิเคราะห์ข้อมูล (Select Dashboard)</div>
 
   <div class="cards-grid">
@@ -999,105 +588,57 @@
         </a>
       </div>
     </article>
+
+    <!-- DASHBOARD 4: TCI TIER 1 SOCIAL SCIENCES (N = 49,345) & CHULA PSYCHOLOGY BENCHMARK -->
+    <article class="dash-card">
+      <div>
+        <div class="card-banner-teal"></div>
+        <div class="card-body">
+          <div class="card-tag-row">
+            <span class="tag tag-emerald">Dashboard 4 • TCI Tier 1 Social Sciences</span>
+            <span class="tag tag-blue" data-sync="tag-tci-ss-n">N = 49,345 Full-Text Articles</span>
+            <span class="tag tag-fuchsia">🎓 คณะจิตวิทยา จุฬาฯ Benchmark</span>
+          </div>
+          <h2>แดชบอร์ดวิจัยไทย TCI กลุ่ม 1 สาขาสังคมศาสตร์ (2003–2025) &amp; คณะจิตวิทยา จุฬาฯ</h2>
+          <p class="desc">
+            วิเคราะห์บทความวิจัยฉบับเต็มทั้ง <span data-sync="tci-ss-inline">49,345</span> เรื่อง จากวารสาร TCI กลุ่ม 1 สาขาสังคมศาสตร์ 147 วารสาร (ค.ศ. 2003–2005 และรายปีต่อเนื่อง 2010–2025)
+            พร้อมหน้าเปรียบเทียบเฉพาะสำหรับ <strong>คณะจิตวิทยา จุฬาลงกรณ์มหาวิทยาลัย</strong>
+          </p>
+          <div class="kpi-mini-grid">
+            <div class="kpi-mini">
+              <div class="num" style="color: #0f766e;" data-sync="tci-ss-total">49,345</div>
+              <div class="lbl">บทความวิเคราะห์ฉบับเต็ม</div>
+            </div>
+            <div class="kpi-mini">
+              <div class="num" style="color: var(--blue);" data-sync="tci-ss-emp">35,631</div>
+              <div class="lbl">งานวิจัยเชิงประจักษ์ (Empirical)</div>
+            </div>
+            <div class="kpi-mini">
+              <div class="num" style="color: #be185d;" data-sync="tci-ss-j">147 วารสาร</div>
+              <div class="lbl">Scopus 19 • TCI-Only 128</div>
+            </div>
+          </div>
+          <ul class="feature-list">
+            <li>สรุปกระชับ 4 หน้าหลัก: 9 ข้อค้นพบระยะยาว, แนวโน้มสถิติ SEM/Mediation/CFA &amp; จุดตัดซอฟต์แวร์ปี 2020 (AMOS แซง LISREL), และเปรียบเทียบ 147 วารสาร 6 สาขาวิชา</li>
+            <li>หน้าเฉพาะ <strong>คณะจิตวิทยา จุฬาลงกรณ์มหาวิทยาลัย</strong>: แผนผังนิเวศการตีพิมพ์ TCI (301 เรื่อง) และตารางเปรียบเทียบวิธีวิทยากับเกณฑ์อ้างอิงระดับประเทศ</li>
+            <li>Interactive Explorer ค้นหาและส่งออก CSV จากบทความทั้ง <span data-sync="tci-ss-total-2">49,345</span> เรื่อง พร้อมลิงก์บทความต้นฉบับบนระบบ ThaiJO</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card-footer">
+        <a href="tci1_social_sciences_dashboard.html" class="btn-launch btn-launch-teal">
+          <span data-sync="btn-tci-ss">เปิดแดชบอร์ด TCI กลุ่ม 1 สังคมศาสตร์ (N = 49,345)</span>
+          <span>→</span>
+        </a>
+      </div>
+    </article>
   </div>
 
-
-  <!-- AI RESEARCH ASSISTANT (FULL-TEXT RAG CHAT) -->
-  <section id="ai-assistant" class="ai-chat-section">
-    <div class="ai-chat-header">
-      <div class="ai-chat-title-wrap">
-        <div class="ai-icon-box">🤖</div>
-        <div>
-          <h2>AI Research Assistant — ระบบถาม-ตอบสืบค้นงานวิจัยและมาตรวัดฉบับเต็ม (Full-Text RAG)</h2>
-          <p>ค้นหาและสังเคราะห์คำตอบพร้อมอ้างอิงจากบทความวิจัยฉบับเต็ม N = 52,849 เรื่อง (1995–2026) และคลังมาตรวัดจิตวิทยา จุฬาฯ 2,534 มาตรวัด (768 วิทยานิพนธ์)</p>
-        </div>
-      </div>
-      <div id="ai-status-pill" class="ai-status-pill" title="สถานะการเชื่อมต่อเซิร์ฟเวอร์ AI">
-        <span id="ai-status-dot" class="ai-status-dot off"></span>
-        <span id="ai-status-text">ปิดใช้งาน AI (OFF)</span>
-      </div>
-    </div>
-
-    <div class="ai-controls-bar">
-      <label class="ai-ctrl-group">
-        <span>🧠 โหมด AI (Engine):</span>
-        <select id="ai-engine-select" class="ai-select" autocomplete="off" onchange="onAiEngineChange(this)">
-          <option value="local" selected>Qwen3.8-27B (Local AI)</option>
-          <option value="agy_flash">Gemini 3.8 Flash (Antigravity Subscription)</option>
-        </select>
-      </label>
-
-      <label class="ai-ctrl-group">
-        <span>📚 ขอบเขตข้อมูล (Scope):</span>
-        <select id="ai-scope-select" class="ai-select" autocomplete="off">
-          <option value="all" selected>🌐 ทั้งหมด (52,849 งานวิจัย + 2,534 มาตรวัดจุฬาฯ)</option>
-          <option value="scales">📏 เฉพาะคลังมาตรวัดทางจิตวิทยา จุฬาฯ (2,534 มาตรวัด)</option>
-          <option value="papers">📊 เฉพาะงานวิจัย &amp; สถิติวิเคราะห์ (52,849 เรื่อง: APA, OA, TCI 1, Chula)</option>
-        </select>
-      </label>
-
-      <div class="ai-switch-group">
-        <span>เปิดใช้งาน AI:</span>
-        <label class="ai-switch" title="สลับเพื่อเปิด/ปิดระบบถาม-ตอบ AI">
-          <input type="checkbox" id="ai-power-switch" autocomplete="off" onchange="onAiPowerToggle(this)">
-          <span class="ai-switch-slider"></span>
-        </label>
-        <span id="ai-switch-label" class="ai-switch-badge">OFF</span>
-      </div>
-    </div>
-
-    <form id="ai-passcode-bar" onsubmit="verifyAndEnableAi(event)" style="display: none; padding: 10px 24px; background: #fffbeb; border-bottom: 1px solid #fde68a; font-size: 13px; align-items: center; gap: 10px; flex-wrap: wrap;">
-      <strong style="color: #92400e;">🔑 ใส่รหัสผ่านเพื่อใช้งาน Gemini 3.8 Flash:</strong>
-      <input type="password" id="ai-passcode-input" class="ai-key-input" style="width: 180px; background: #fff;" placeholder="รหัสผ่าน..." autocomplete="off">
-      <button type="submit" id="ai-passcode-btn" class="ai-chip" style="background: #2563eb; color: #fff; border-color: #2563eb;">ยืนยัน</button>
-      <button type="button" class="ai-chip" onclick="cancelPasscodePrompt()">ยกเลิก</button>
-      <span id="ai-passcode-msg" style="color: #dc2626; font-weight: 700;"></span>
-    </form>
-
-    <div class="ai-Starter-chips">
-      <span style="font-size: 11.5px; font-weight: 700; color: #64748b; display: inline-flex; align-items: center; margin-right: 4px;">💡 คำถามตัวอย่าง:</span>
-      <button type="button" class="ai-chip" disabled onclick="askPresetQuestion('หามาตรวัดภาวะหมดไฟ (Burnout) หรือความเหนื่อยหน่ายในงาน พร้อมค่าความเที่ยง Cronbach alpha จำนวนข้อ และลิงก์ PDF')">🔍 มาตรวัดภาวะหมดไฟ (Burnout) &amp; ค่า α</button>
-      <button type="button" class="ai-chip" disabled onclick="askPresetQuestion('เปรียบเทียบสถิติที่ใช้ในวารสารนานาชาติ APA กับงานวิจัยไทยในฐาน TCI 1 และวิทยานิพนธ์จุฬาฯ ต่างกันอย่างไร?')">📊 เปรียบเทียบสถิติวิจัย APA vs วิจัยไทย (TCI 1 &amp; จุฬาฯ)</button>
-      <button type="button" class="ai-chip" disabled onclick="askPresetQuestion('หามาตรวัดความเมตตากรุณาต่อตนเอง (Self-Compassion) หรือสติ (Mindfulness) ในวิทยานิพนธ์จุฬาฯ มีกี่ข้อ ค่าความเที่ยงเท่าไร?')">🧘 มาตรวัด Self-Compassion / Mindfulness ในจุฬาฯ</button>
-      <button type="button" class="ai-chip" disabled onclick="askPresetQuestion('งานวิจัยที่ศึกษา Executive Function หรือ Working Memory ใช้เครื่องมือและการวิเคราะห์สถิติแบบใดบ้าง?')">🧠 งานวิจัย Executive Function &amp; Working Memory</button>
-      <button type="button" class="ai-chip" disabled onclick="askPresetQuestion('แนวโน้มการทำ Open Science (Open Data, Preregistration, Power Analysis) ในงานวิจัยจิตวิทยาเป็นอย่างไร?')">📈 สถิติแนวโน้ม Open Science &amp; Power Analysis</button>
-    </div>
-
-    <div id="ai-messages" class="ai-messages">
-      <div class="ai-msg assistant">
-        <div class="ai-avatar">🤖</div>
-        <div class="ai-bubble-wrap">
-          <div class="ai-bubble">
-            <p><strong>สวัสดีครับ! ผมคือ AI Research Assistant ประจำพอร์ทัลงานวิจัยจิตวิทยา</strong> 👋</p>
-            <p>คุณสามารถพิมพ์ถามเป็น<strong>ภาษาไทย</strong>หรือ<strong>ภาษาอังกฤษ</strong>เพื่อสืบค้นและสังเคราะห์ข้อมูลจากคลังข้อมูลฉบับเต็ม (Full-Text RAG) ได้ทันที:</p>
-            <ul>
-              <li>📏 <strong>คลังมาตรวัดทางจิตวิทยา จุฬาฯ (2,534 มาตรวัด จาก 768 วิทยานิพนธ์):</strong> สืบค้นชื่อเครื่องมือวิจัย ผู้พัฒนา ต้นฉบับ จำนวนข้อ มาตรประมาณค่า องค์ประกอบย่อย ค่าความเที่ยง (Cronbach's α) พร้อมปุ่มกดเปิดไฟล์ <code>📕 PDF ฉบับเต็ม</code> บน Chula Digiverse</li>
-              <li>🌐 <strong>คลังบทความวิจัยจิตวิทยาฉบับเต็ม (N = 52,849 เรื่อง):</strong> ครอบคลุมวารสาร APA 23 วารสาร (ค.ศ. 1995–2025), PLOS ONE, Frontiers in Psychology, BMC Psychology, วารสารไทย TCI กลุ่ม 1 และวิทยานิพนธ์จุฬาฯ (บทคัดย่อ, กลุ่มตัวอย่าง, ระเบียบวิธีวิจัย, เครื่องมือ, และผลการวิเคราะห์สถิติ)</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <form class="ai-input-bar" onsubmit="handleAiSubmit(event)">
-      <input
-        type="text"
-        id="ai-chat-input"
-        class="ai-chat-input"
-        placeholder="🔒 ระบบ AI ปิดอยู่ — กรุณาเปิดสวิตช์ ON ด้านบนเพื่อเริ่มถาม-ตอบ"
-        autocomplete="off"
-        disabled
-      >
-      <button type="submit" id="ai-send-btn" class="ai-send-btn" disabled>
-        <span>ส่งคำถาม</span>
-        <span>➤</span>
-      </button>
-    </form>
-  </section>
-
-
   <div class="footer-note">
-    <div>Psychological Research Practices &amp; Psychometric Scales Analytics Portal • Self-Contained Static Web Application</div>
+    <div>Psychological &amp; Social Sciences Research Practices, Psychometric Scales &amp; Chula Faculty Works Portal • Self-Contained Static Web Application</div>
+    <div style="margin-top: 6px; font-size: 12.5px; color: #92400e;">
+      ⚠️ <strong>AI Notice:</strong> ข้อมูล สถิติ และแดชบอร์ดทั้งหมดในพอร์ทัลนี้สร้างและประมวลผลโดย AI อัตโนมัติ ซึ่งอาจมีข้อผิดพลาดได้ (All content and dashboards are AI-generated and may contain mistakes — verify with original sources).
+    </div>
     <div style="margin-top: 6px; font-size: 12.5px; color: #334155;">
       ⚖️ <strong>License &amp; Attribution:</strong> เผยแพร่ภายใต้สัญญาอนุญาต <strong>MIT License</strong> (สำหรับซอฟต์แวร์/โค้ด) และ <strong>Creative Commons Attribution 4.0 International (CC BY 4.0)</strong> (สำหรับฐานข้อมูลและเนื้อหาแดชบอร์ด) — อนุญาตให้นำไปใช้ ดัดแปลง หรือเผยแพร่ต่อได้โดย<strong>ต้องอ้างอิงแหล่งที่มาและให้เครดิตผู้จัดทำ (Attribution Required)</strong>
     </div>
@@ -1187,721 +728,30 @@
       }
     }
   } catch (_) {}
+
+  try {
+    const res4 = await fetch('tci1_social_sciences_dashboard.html');
+    if (res4.ok) {
+      const txt4 = await res4.text();
+      const mTci = txt4.match(/const TCI_META\s*=\s*(\{[^}]+\});/);
+      if (mTci) {
+        const tm = JSON.parse(mTci[1]);
+        const nTot = Number(tm.n_total).toLocaleString();
+        const nEmp = Number(tm.n_empirical).toLocaleString();
+        const nJ = Number(tm.n_journals_total).toLocaleString();
+        setTxt('tci-ss-badge', `N = ${nTot} | ${nJ} วารสาร`);
+        setTxt('hero-tci-ss', `🏛️ N = ${nTot} TCI Tier 1 Social Sciences (${nJ} Journals)`);
+        setTxt('tag-tci-ss-n', `N = ${nTot} Full-Text Articles`);
+        setTxt('tci-ss-inline', nTot);
+        setTxt('tci-ss-total', nTot);
+        setTxt('tci-ss-total-2', nTot);
+        setTxt('tci-ss-emp', nEmp);
+        setTxt('tci-ss-j', `${nJ} วารสาร`);
+        setTxt('btn-tci-ss', `เปิดแดชบอร์ด TCI กลุ่ม 1 สังคมศาสตร์ (N = ${nTot})`);
+      }
+    }
+  } catch (_) {}
 })();
 </script>
-
-<script>
-// ============================================================================
-// AI RESEARCH ASSISTANT (HYBRID LOCAL MAC MINI M5 PRO RAG + CLOUD API + IN-BROWSER FALLBACK)
-// ============================================================================
-const AI_STATE = {
-  enabled: false,
-  passcode: '',
-  serverUrl: '',
-  serverOnline: false,
-  localLlmAvailable: false,
-  localModelName: 'Qwen3.8-27B-4bit',
-  busy: false,
-  cooldownRemaining: 0,
-  clientCacheLoaded: false,
-  clientScales: [],
-  clientPapers: [],
-  clientCohorts: null
-};
-
-function escapeHtml(str) {
-  return String(str || '')
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
-}
-
-function renderMarkdown(md) {
-  if (!md) return '';
-  let text = escapeHtml(md);
-  // Code blocks
-  text = text.replace(/`([^`]+)`/g, '<code>$1</code>');
-  // Bold
-  text = text.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
-  // Italic (*text* not starting/ending with space)
-  text = text.replace(/(^|[^*])\*([^\s*][^*]*?)\*(?!\*)/g, '$1<em>$2</em>');
-  // Markdown links [label](url)
-  text = text.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1 ↗</a>');
-
-  const lines = text.split(/\r?\n/);
-  let html = '';
-  let inList = false;
-
-  for (let rawLine of lines) {
-    const line = rawLine.trim();
-    if (!line) {
-      if (inList) { html += '</ul>'; inList = false; }
-      continue;
-    }
-    if (/^---+$/.test(line)) {
-      if (inList) { html += '</ul>'; inList = false; }
-      html += '<hr>';
-    } else if (line.startsWith('#### ')) {
-      if (inList) { html += '</ul>'; inList = false; }
-      html += `<h4>${line.slice(5)}</h4>`;
-    } else if (line.startsWith('### ')) {
-      if (inList) { html += '</ul>'; inList = false; }
-      html += `<h3>${line.slice(4)}</h3>`;
-    } else if (line.startsWith('## ')) {
-      if (inList) { html += '</ul>'; inList = false; }
-      html += `<h3>${line.slice(3)}</h3>`;
-    } else if (line.startsWith('# ')) {
-      if (inList) { html += '</ul>'; inList = false; }
-      html += `<h3>${line.slice(2)}</h3>`;
-    } else if (/^[-*•]\s+/.test(line) || /^\d+\.\s+/.test(line)) {
-      if (!inList) { html += '<ul>'; inList = true; }
-      const itemTxt = line.replace(/^([-*•]|\d+\.)\s+/, '');
-      html += `<li>${itemTxt}</li>`;
-    } else {
-      if (inList) { html += '</ul>'; inList = false; }
-      html += `<p>${line}</p>`;
-    }
-  }
-  if (inList) html += '</ul>';
-  return html;
-}
-
-function turnOffAiSystem() {
-  const sw = document.getElementById('ai-power-switch');
-  const lbl = document.getElementById('ai-switch-label');
-  const dot = document.getElementById('ai-status-dot');
-  const txt = document.getElementById('ai-status-text');
-  const engSel = document.getElementById('ai-engine-select');
-  const scopeSel = document.getElementById('ai-scope-select');
-  const pwBar = document.getElementById('ai-passcode-bar');
-
-  AI_STATE.enabled = false;
-  AI_STATE.passcode = '';
-  AI_STATE.serverOnline = false;
-  if (sw) sw.checked = false;
-  if (pwBar) pwBar.style.display = 'none';
-  if (engSel) engSel.value = 'local';
-  lbl.textContent = 'OFF';
-  lbl.className = 'ai-switch-badge';
-  dot.className = 'ai-status-dot off';
-  txt.textContent = 'ปิดใช้งาน AI (OFF)';
-  engSel.disabled = false;
-  scopeSel.disabled = false;
-  setChatControlsLocked(
-    true,
-    '🔒 ระบบ AI ปิดอยู่ — กรุณาเปิดสวิตช์ ON ด้านบนเพื่อเริ่มถาม-ตอบ',
-    '<span>ส่งคำถาม</span><span>➤</span>'
-  );
-}
-
-function showPasscodePrompt() {
-  const pwBar = document.getElementById('ai-passcode-bar');
-  const pwInput = document.getElementById('ai-passcode-input');
-  const pwMsg = document.getElementById('ai-passcode-msg');
-  pwMsg.textContent = '';
-  pwInput.value = '';
-  pwBar.style.display = 'flex';
-  pwInput.focus();
-}
-
-function activateAiUiControls(serverUrl) {
-  AI_STATE.enabled = true;
-  AI_STATE.serverUrl = serverUrl;
-  AI_STATE.serverOnline = true;
-
-  document.getElementById('ai-passcode-bar').style.display = 'none';
-  document.getElementById('ai-power-switch').checked = true;
-  const lbl = document.getElementById('ai-switch-label');
-  lbl.textContent = 'ON';
-  lbl.className = 'ai-switch-badge on';
-
-  const dot = document.getElementById('ai-status-dot');
-  const txt = document.getElementById('ai-status-text');
-  dot.className = 'ai-status-dot online';
-  txt.textContent = 'Online • Full-Text RAG Ready';
-
-  document.getElementById('ai-engine-select').disabled = false;
-  document.getElementById('ai-scope-select').disabled = false;
-
-  if (!AI_STATE.busy && AI_STATE.cooldownRemaining <= 0) {
-    setChatControlsLocked(false, DEFAULT_INPUT_PLACEHOLDER, '<span>ส่งคำถาม</span><span>➤</span>');
-    const chatInput = document.getElementById('ai-chat-input');
-    if (chatInput) chatInput.focus();
-  }
-}
-
-async function onAiPowerToggle(checkboxEl) {
-  if (!checkboxEl.checked) {
-    turnOffAiSystem();
-    return;
-  }
-  const engSel = document.getElementById('ai-engine-select');
-  const selectedEngine = engSel ? engSel.value : 'local';
-
-  // If Flash is selected and passcode is not verified yet, require passcode
-  if (selectedEngine === 'agy_flash' && !AI_STATE.passcode) {
-    checkboxEl.checked = false;
-    showPasscodePrompt();
-    return;
-  }
-
-  // Local AI (Qwen3.8-27B) requires NO passcode — connect and turn ON immediately
-  const dot = document.getElementById('ai-status-dot');
-  const txt = document.getElementById('ai-status-text');
-  txt.textContent = '⏳ กำลังเชื่อมต่อเซิร์ฟเวอร์ AI...';
-
-  const found = await discoverActiveServerUrl();
-  if (!found) {
-    checkboxEl.checked = false;
-    dot.className = 'ai-status-dot off';
-    txt.textContent = '❌ ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์ AI ได้';
-    return;
-  }
-  activateAiUiControls(found.url);
-}
-
-function onAiEngineChange(selectEl) {
-  if (selectEl.value === 'agy_flash' && !AI_STATE.passcode) {
-    // Keep Local AI selected until the user enters the correct passcode for Flash
-    selectEl.value = 'local';
-    showPasscodePrompt();
-  } else {
-    document.getElementById('ai-passcode-bar').style.display = 'none';
-  }
-}
-
-function cancelPasscodePrompt() {
-  document.getElementById('ai-passcode-bar').style.display = 'none';
-  const engSel = document.getElementById('ai-engine-select');
-  if (engSel) engSel.value = 'local';
-  if (!AI_STATE.enabled) {
-    turnOffAiSystem();
-  }
-}
-
-async function probeServerHealth(baseUrl) {
-  if (!baseUrl) return null;
-  try {
-    const ctrl = new AbortController();
-    const timer = setTimeout(() => ctrl.abort(), 3200);
-    const res = await fetch(`${baseUrl}/api/health`, { signal: ctrl.signal });
-    clearTimeout(timer);
-    if (res.ok) {
-      return await res.json();
-    }
-  } catch (_) {}
-  return null;
-}
-
-async function discoverActiveServerUrl() {
-  const candidates = [];
-  try {
-    const cfgRes = await fetch('ai_config.json?t=' + Date.now());
-    if (cfgRes.ok) {
-      const cfg = await cfgRes.json();
-      if (cfg && cfg.api_base_url) {
-        candidates.push(cfg.api_base_url.replace(/\/+$/, ''));
-      }
-      if (cfg && cfg.local_fallback_url) {
-        candidates.push(cfg.local_fallback_url.replace(/\/+$/, ''));
-      }
-    }
-  } catch (_) {}
-
-  if (!candidates.includes('http://127.0.0.1:8765')) {
-    candidates.push('http://127.0.0.1:8765');
-  }
-
-  for (const url of candidates) {
-    const health = await probeServerHealth(url);
-    if (health && health.status === 'ok') {
-      return { url, health };
-    }
-  }
-  return null;
-}
-
-async function verifyAndEnableAi(e) {
-  if (e) e.preventDefault();
-  const pwInput = document.getElementById('ai-passcode-input');
-  const pwMsg = document.getElementById('ai-passcode-msg');
-  const pwBtn = document.getElementById('ai-passcode-btn');
-  const enteredPw = (pwInput.value || '').trim();
-  if (!enteredPw) {
-    pwMsg.textContent = '⚠️ กรุณากรอกรหัสผ่าน';
-    pwInput.focus();
-    return;
-  }
-
-  pwBtn.disabled = true;
-  pwMsg.style.color = '#1d4ed8';
-  pwMsg.textContent = '⏳ กำลังตรวจสอบรหัสผ่าน...';
-
-  try {
-    const found = await discoverActiveServerUrl();
-    if (!found) {
-      pwMsg.style.color = '#dc2626';
-      pwMsg.textContent = '❌ ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์ AI ได้ในขณะนี้';
-      pwBtn.disabled = false;
-      return;
-    }
-
-    const res = await fetch(`${found.url}/api/auth`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ passcode: enteredPw })
-    });
-
-    if (!res.ok) {
-      pwMsg.style.color = '#dc2626';
-      pwMsg.textContent = '❌ รหัสผ่านไม่ถูกต้อง';
-      pwInput.value = '';
-      pwInput.focus();
-      pwBtn.disabled = false;
-      return;
-    }
-
-    // Passcode verified! Unlock Gemini 3.8 Flash and ensure AI is ON
-    AI_STATE.passcode = enteredPw;
-    const engSel = document.getElementById('ai-engine-select');
-    if (engSel) engSel.value = 'agy_flash';
-    activateAiUiControls(found.url);
-  } catch (err) {
-    pwMsg.style.color = '#dc2626';
-    pwMsg.textContent = '❌ เกิดข้อผิดพลาดในการตรวจสอบรหัสผ่าน';
-  } finally {
-    pwBtn.disabled = false;
-  }
-}
-
-function askPresetQuestion(q) {
-  if (!AI_STATE.enabled || AI_STATE.busy || AI_STATE.cooldownRemaining > 0) return;
-  const input = document.getElementById('ai-chat-input');
-  input.value = q;
-  handleAiSubmit(new Event('submit'));
-}
-
-function appendUserMessage(query) {
-  const box = document.getElementById('ai-messages');
-  const div = document.createElement('div');
-  div.className = 'ai-msg user';
-  div.innerHTML = `
-    <div class="ai-avatar">👤</div>
-    <div class="ai-bubble-wrap">
-      <div class="ai-bubble"><p>${escapeHtml(query)}</p></div>
-    </div>
-  `;
-  box.appendChild(div);
-  box.scrollTop = box.scrollHeight;
-}
-
-function appendLoadingBubble() {
-  const box = document.getElementById('ai-messages');
-  const div = document.createElement('div');
-  div.className = 'ai-msg assistant';
-  div.id = 'ai-loading-msg';
-  div.innerHTML = `
-    <div class="ai-avatar">🤖</div>
-    <div class="ai-bubble-wrap">
-      <div class="ai-bubble">
-        <div class="ai-loading-box">
-          <span class="ai-spinner"></span>
-          <span id="ai-loading-step">🔎 กำลังสืบค้นข้อมูลฉบับเต็มจากคลังวิจัย 42,498 เรื่อง และมาตรวัดจุฬาฯ 2,534 มาตรวัด</span>
-          <span class="ai-typing-dots" aria-hidden="true"><span></span><span></span><span></span></span>
-          <span id="ai-loading-timer" class="ai-elapsed-badge">⏱️ 0.0s</span>
-        </div>
-      </div>
-    </div>
-  `;
-  box.appendChild(div);
-  box.scrollTop = box.scrollHeight;
-
-  const t0 = performance.now();
-  div._timerInterval = setInterval(() => {
-    const elapsedSec = (performance.now() - t0) / 1000;
-    const timerEl = div.querySelector('#ai-loading-timer');
-    const stepEl = div.querySelector('#ai-loading-step');
-    if (timerEl) timerEl.textContent = `⏱️ ${elapsedSec.toFixed(1)}s`;
-    if (stepEl) {
-      if (elapsedSec > 4.0) {
-        stepEl.textContent = '🧠 กำลังสังเคราะห์คำตอบและรายการอ้างอิงด้วยโมเดล AI';
-      } else if (elapsedSec > 1.5) {
-        stepEl.textContent = '📖 กำลังอ่านเนื้อหาบทระเบียบวิธีวิจัยและผลการวิเคราะห์สถิติฉบับเต็ม';
-      }
-    }
-  }, 200);
-
-  div.cleanup = () => {
-    if (div._timerInterval) clearInterval(div._timerInterval);
-    div.remove();
-  };
-  return div;
-}
-
-function buildSourcesHtml(sources) {
-  if (!sources || !sources.length) return '';
-  const cards = sources.slice(0, 8).map(s => {
-    if (s.badge && s.meta) {
-      const isScale = s.type === 'scale' || s.type === 'chula_scale';
-      return `
-        <div class="ai-source-card">
-          <span class="ai-source-badge ${isScale ? 'scale' : ''}">${isScale ? '📏 ' : '📄 '}${escapeHtml(s.badge)}</span>
-          <div class="ai-source-title">${escapeHtml((s.title || '').slice(0, 130))}</div>
-          <div class="ai-source-meta">${escapeHtml(s.meta)}</div>
-          ${s.url ? `<a class="ai-source-link" href="${escapeHtml(s.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(s.url_label || '🔗 เปิดเอกสารต้นฉบับ')} ↗</a>` : ''}
-        </div>
-      `;
-    }
-    if (s.type === 'chula_scale' || s.type === 'scale') {
-      const alphaStr = s.alpha ? `α = ${escapeHtml(s.alpha)}` : 'ไม่ระบุ α';
-      const itemsStr = s.items ? `${escapeHtml(s.items)} ข้อ` : '';
-      return `
-        <div class="ai-source-card">
-          <span class="ai-source-badge scale">📏 มาตรวัดจุฬาฯ • BIBID ${escapeHtml(s.bibid)} (${escapeHtml(s.year_be || s.year_ce)})</span>
-          <div class="ai-source-title">${escapeHtml(s.scale_name_th || s.scale_name_en || s.title)}</div>
-          <div class="ai-source-meta">
-            ${s.scale_name_en ? `<div><strong>EN:</strong> ${escapeHtml(s.scale_name_en)}</div>` : ''}
-            <div><strong>ความเที่ยง:</strong> ${alphaStr} ${itemsStr ? `• <strong>จำนวน:</strong> ${itemsStr}` : ''}</div>
-            <div><strong>วิทยานิพนธ์:</strong> ${escapeHtml((s.thesis_title || '').slice(0, 95))}...</div>
-          </div>
-          ${s.url ? `<a class="ai-source-link" href="${escapeHtml(s.url)}" target="_blank" rel="noopener noreferrer">📕 เปิดไฟล์วิทยานิพนธ์ PDF (Chula Digiverse) ↗</a>` : ''}
-        </div>
-      `;
-    } else {
-      const statsStr = (s.stats && s.stats.length) ? s.stats.slice(0, 4).join(', ') : (s.design || 'Empirical Study');
-      return `
-        <div class="ai-source-card">
-          <span class="ai-source-badge">📄 ${escapeHtml((s.cohort || 'Paper').toUpperCase())} • ${escapeHtml(s.year)}</span>
-          <div class="ai-source-title">${escapeHtml((s.title || '').slice(0, 110))}</div>
-          <div class="ai-source-meta">
-            <div><strong>วารสาร/แหล่งที่มา:</strong> ${escapeHtml(s.journal || '-')}</div>
-            <div><strong>สถิติ/ระเบียบวิธี:</strong> ${escapeHtml(statsStr)}</div>
-          </div>
-          ${s.url ? `<a class="ai-source-link" href="${escapeHtml(s.url)}" target="_blank" rel="noopener noreferrer">🔗 เปิดเอกสารต้นฉบับ / DOI ↗</a>` : ''}
-        </div>
-      `;
-    }
-  }).join('');
-
-  return `
-    <div style="margin-top: 6px; font-size: 12px; font-weight: 700; color: #475569;">📌 รายการอ้างอิงที่ค้นพบและใช้สังเคราะห์คำตอบ (${sources.length} รายการ):</div>
-    <div class="ai-sources-grid">${cards}</div>
-  `;
-}
-
-// Client-side fallback search if the Mac mini tunnel is asleep/offline
-async function ensureClientCorpusLoaded() {
-  if (AI_STATE.clientCacheLoaded) return;
-  AI_STATE.clientCacheLoaded = true;
-
-  try {
-    const res2 = await fetch('chula_psych_scales_corpus_dashboard.html');
-    if (res2.ok) {
-      const txt2 = await res2.text();
-      const mData = txt2.match(/const DATA\s*=\s*(\[\{[\s\S]*?\}\]);/);
-      if (mData) {
-        const theses = JSON.parse(mData[1]);
-        for (const t of theses) {
-          const pdfUrl = t.pdf ? `https://digiverse.chula.ac.th/Info/item/${t.pdf}` : '';
-          for (const sc of (t.sc || [])) {
-            AI_STATE.clientScales.push({
-              type: 'chula_scale',
-              bibid: String(t.id || ''),
-              year_be: t.yb || '',
-              year_ce: t.yc || '',
-              thesis_title: t.ti || '',
-              authors: t.au || '',
-              dept: t.dp || '',
-              scale_name_th: sc.nt || '',
-              scale_name_en: sc.ne || '',
-              Construct: sc.c || '',
-              items: sc.it || '',
-              alpha: sc.a || '',
-              url: pdfUrl,
-              searchBlob: `${sc.nt || ''} ${sc.ne || ''} ${sc.c || ''} ${t.ti || ''} ${t.au || ''} ${sc.or || ''}`.toLowerCase()
-            });
-          }
-        }
-      }
-    }
-  } catch (_) {}
-
-  try {
-    const res1 = await fetch('psych_research_practices_dashboard.html');
-    if (res1.ok) {
-      const txt1 = await res1.text();
-      const mCoh = txt1.match(/const COHORTS\s*=\s*(\{.*?\});/);
-      if (mCoh) AI_STATE.clientCohorts = JSON.parse(mCoh[1]);
-      const mRec = txt1.match(/const RECORDS\s*=\s*(\[.*?\]);/);
-      if (mRec) {
-        const recs = JSON.parse(mRec[1]);
-        for (const r of recs) {
-          let url = r.u || '';
-          if (!url && r.d) url = r.d.startsWith('http') ? r.d : `https://doi.org/${r.d}`;
-          AI_STATE.clientPapers.push({
-            type: 'paper',
-            paper_id: String(r.i || ''),
-            cohort: r.c || '',
-            year: r.y || '',
-            title: r.t || '',
-            authors: r.a || '',
-            journal: r.j || '',
-            design: r.dt || '',
-            stats: r.st || [],
-            url: url,
-            searchBlob: `${r.t || ''} ${r.a || ''} ${r.j || ''} ${(r.st || []).join(' ')} ${(r.sw || []).join(' ')}`.toLowerCase()
-          });
-        }
-      }
-    }
-  } catch (_) {}
-}
-
-async function runClientSideFallback(query, engine, apiKey, scope) {
-  await ensureClientCorpusLoaded();
-  const tokens = (query.toLowerCase().match(/[a-z0-9\u0E00-\u0E7F]{2,}/g) || []).filter(w => w.length >= 2);
-  const matchedScales = [];
-  const matchedPapers = [];
-
-  if (scope === 'all' || scope === 'scales') {
-    for (const sc of AI_STATE.clientScales) {
-      let score = 0;
-      for (const tk of tokens) {
-        if (sc.searchBlob.includes(tk)) score += 1;
-      }
-      if (score > 0) matchedScales.push({ score, item: sc });
-    }
-    matchedScales.sort((a, b) => b.score - a.score);
-  }
-
-  if (scope === 'all' || scope === 'papers') {
-    for (const p of AI_STATE.clientPapers) {
-      let score = 0;
-      for (const tk of tokens) {
-        if (p.searchBlob.includes(tk)) score += 1;
-      }
-      if (score > 0) matchedPapers.push({ score, item: p });
-    }
-    matchedPapers.sort((a, b) => b.score - a.score);
-  }
-
-  const topScales = matchedScales.slice(0, 6).map(x => x.item);
-  const topPapers = matchedPapers.slice(0, 6).map(x => x.item);
-  const sources = [...topScales, ...topPapers];
-
-  // If user provided Gemini or OpenAI API key, call Cloud API directly from browser!
-  if ((engine === 'gemini' || engine === 'openai') && apiKey) {
-    const ctxLines = [];
-    topScales.forEach((s, idx) => {
-      ctxLines.push(`[Scale S${idx+1}] BIBID ${s.bibid} (${s.year_be}) | ${s.scale_name_th} (${s.scale_name_en}) | Construct: ${s.Construct} | Items: ${s.items} | Alpha: ${s.alpha} | Thesis: ${s.thesis_title} | PDF: ${s.url}`);
-    });
-    topPapers.forEach((p, idx) => {
-      ctxLines.push(`[Paper P${idx+1}] (${p.year}) ${p.title} | Journal: ${p.journal} | Stats: ${(p.stats||[]).join(', ')} | URL: ${p.url}`);
-    });
-    const sysPrompt = "คุณคือ AI Research Assistant ประจำเว็บไซต์ Psychological Research Practices & Chula Psychometric Scales ตอบคำถามโดยอ้างอิงข้อมูลที่ค้นพบด้านล่างอย่างแม่นยำ พร้อมระบุชื่อมาตรวัด ค่าความเที่ยง (Cronbach's alpha) และลิงก์";
-    const userPrompt = `คำถาม: ${query}\n\nข้อมูลที่ค้นพบจากคลัง:\n${ctxLines.join('\n') || 'ไม่พบรายการที่ตรงคำค้นโดยตรง'}`;
-
-    if (engine === 'gemini') {
-      const gemUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${encodeURIComponent(apiKey)}`;
-      const r = await fetch(gemUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          system_instruction: { parts: [{ text: sysPrompt }] },
-          contents: [{ role: 'user', parts: [{ text: userPrompt }] }],
-          generationConfig: { temperature: 0.2 }
-        })
-      });
-      const d = await r.json();
-      const ans = d?.candidates?.[0]?.content?.parts?.map(p => p.text || '').join('') || 'ไม่สามารถสร้างคำตอบจาก Gemini API ได้';
-      return { answer: ans, sources, engine_used: 'Google Gemini 2.5 Flash (Direct Browser Mode)', retrieval_ms: 45 };
-    } else if (engine === 'openai') {
-      const r = await fetch('https://api.openai.com/v1/chat/completions', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
-        body: JSON.stringify({
-          model: 'gpt-4o-mini',
-          messages: [{ role: 'system', content: sysPrompt }, { role: 'user', content: userPrompt }],
-          temperature: 0.2
-        })
-      });
-      const d = await r.json();
-      const ans = d?.choices?.[0]?.message?.content || 'ไม่สามารถสร้างคำตอบจาก OpenAI API ได้';
-      return { answer: ans, sources, engine_used: 'OpenAI GPT-4o-mini (Direct Browser Mode)', retrieval_ms: 45 };
-    }
-  }
-
-  // Deterministic summary in browser
-  const lines = [`ผลการสืบค้นสำหรับคำถาม: **"${query}"**`];
-  if (topScales.length > 0) {
-    lines.push(`\n### 📏 มาตรวัดทางจิตวิทยา จุฬาฯ ที่เกี่ยวข้อง (${topScales.length} รายการเด่น)`);
-    topScales.forEach((s, i) => {
-      lines.push(`- **${i+1}. ${s.scale_name_th || s.scale_name_en}** ${s.scale_name_en ? `(${s.scale_name_en})` : ''} — ตัวแปร: ${s.Construct || '-'} | จำนวนข้อ: ${s.items || '-'} | ความเที่ยง (α): **${s.alpha || 'ไม่ระบุ'}** (วิทยานิพนธ์ปี พ.ศ. ${s.year_be}, BIBID: ${s.bibid})`);
-    });
-  }
-  if (topPapers.length > 0) {
-    lines.push(`\n### 📄 งานวิจัยที่เกี่ยวข้อง (${topPapers.length} รายการเด่น)`);
-    topPapers.forEach((p, i) => {
-      lines.push(`- **${i+1}. (${p.year}) ${p.title}** — *${p.journal}* | สถิติ: ${(p.stats||[]).join(', ') || '-'}`);
-    });
-  }
-  if (!topScales.length && !topPapers.length) {
-    lines.push(`\nไม่พบคำที่ตรงกันโดยตรง ลองใช้คำสำคัญภาษาไทยหรือภาษาอังกฤษสั้นๆ เช่น **Burnout**, **ความเครียด**, **Self-Compassion**, **Depression**, **SEM**, หรือ **ANOVA**`);
-  }
-  return {
-    answer: lines.join('\n'),
-    sources,
-    engine_used: 'In-Browser Corpus Search Engine',
-    retrieval_ms: 30
-  };
-}
-
-const DEFAULT_INPUT_PLACEHOLDER = "พิมพ์คำถาม เช่น 'หามาตรวัดความซึมเศร้าในวัยรุ่น พร้อมค่า Cronbach alpha' หรือ 'งานวิจัยที่ใช้ SEM ในไทยมีสัดส่วนเท่าไร'...";
-
-function setChatControlsLocked(locked, placeholderText, btnLabel) {
-  const input = document.getElementById('ai-chat-input');
-  const btn = document.getElementById('ai-send-btn');
-  const chips = document.querySelectorAll('.ai-chip');
-  input.disabled = locked;
-  btn.disabled = locked;
-  chips.forEach(c => { c.disabled = locked; });
-  input.placeholder = placeholderText || DEFAULT_INPUT_PLACEHOLDER;
-  btn.innerHTML = btnLabel || '<span>ส่งคำถาม</span><span>➤</span>';
-}
-
-function startCooldownCountdown(seconds) {
-  AI_STATE.cooldownRemaining = seconds;
-  if (AI_STATE.enabled) {
-    setChatControlsLocked(
-      true,
-      `⏳ กรุณารออีก ${AI_STATE.cooldownRemaining} วินาที จึงจะพิมพ์คำถามถัดไปได้`,
-      `<span>รอ ${AI_STATE.cooldownRemaining}s</span>`
-    );
-  }
-  const timer = setInterval(() => {
-    AI_STATE.cooldownRemaining -= 1;
-    if (AI_STATE.cooldownRemaining > 0) {
-      if (AI_STATE.enabled) {
-        setChatControlsLocked(
-          true,
-          `⏳ กรุณารออีก ${AI_STATE.cooldownRemaining} วินาที จึงจะพิมพ์คำถามถัดไปได้`,
-          `<span>รอ ${AI_STATE.cooldownRemaining}s</span>`
-        );
-      }
-    } else {
-      clearInterval(timer);
-      AI_STATE.cooldownRemaining = 0;
-      AI_STATE.busy = false;
-      if (AI_STATE.enabled) {
-        setChatControlsLocked(false, DEFAULT_INPUT_PLACEHOLDER, '<span>ส่งคำถาม</span><span>➤</span>');
-        const input = document.getElementById('ai-chat-input');
-        if (input) input.focus();
-      }
-    }
-  }, 1000);
-}
-
-async function handleAiSubmit(e) {
-  if (e) e.preventDefault();
-  if (!AI_STATE.enabled || AI_STATE.busy || AI_STATE.cooldownRemaining > 0) return;
-
-  const input = document.getElementById('ai-chat-input');
-  const query = input.value.trim();
-  if (!query) return;
-
-  const engine = document.getElementById('ai-engine-select').value;
-  const scope = document.getElementById('ai-scope-select').value;
-  const apiKey = '';
-
-  input.value = '';
-  AI_STATE.busy = true;
-  setChatControlsLocked(
-    true,
-    '⏳ กำลังประมวลผลคำตอบ กรุณารอจนกว่าข้อความนี้จะเสร็จ',
-    '<span>กำลังทำงาน</span>'
-  );
-
-  appendUserMessage(query);
-  const loadingEl = appendLoadingBubble();
-
-  try {
-    const res = await fetch(`${AI_STATE.serverUrl}/api/chat`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        query,
-        engine,
-        passcode: AI_STATE.passcode,
-        scope,
-        top_k: 10
-      })
-    });
-    if (res.status === 401) {
-      AI_STATE.passcode = '';
-      const engSel = document.getElementById('ai-engine-select');
-      if (engSel) engSel.value = 'local';
-      showPasscodePrompt();
-      throw new Error('กรุณาใส่รหัสผ่านที่ถูกต้องเพื่อใช้งาน Gemini 3.8 Flash ครับ');
-    }
-    if (res.status === 429) {
-      const errData = await res.json().catch(() => ({}));
-      throw new Error(errData.error || 'ระบบรับข้อความได้ทีละ 1 ข้อความและเว้นระยะทุก 5 วินาที กรุณารอสักครู่ครับ');
-    }
-    if (!res.ok) {
-      throw new Error('เกิดข้อผิดพลาดในการเชื่อมต่อเซิร์ฟเวอร์ AI');
-    }
-    const result = await res.json();
-
-    if (loadingEl.cleanup) loadingEl.cleanup(); else loadingEl.remove();
-
-    const box = document.getElementById('ai-messages');
-    const msgDiv = document.createElement('div');
-    msgDiv.className = 'ai-msg assistant';
-    const sourcesHtml = buildSourcesHtml(result.sources || []);
-    msgDiv.innerHTML = `
-      <div class="ai-avatar">🤖</div>
-      <div class="ai-bubble-wrap">
-        <div class="ai-bubble">${renderMarkdown(result.answer)}</div>
-        ${sourcesHtml}
-        <div class="ai-meta-line">
-          <span>⚡ ประมวลผลโดย: <strong>${escapeHtml(result.engine_used || 'AI Assistant')}</strong></span>
-          <span>•</span>
-          <span>สืบค้น Full-Text ใน ${Number(result.retrieval_ms || 0).toFixed(0)} ms</span>
-          <span>•</span>
-          <span>พบเอกสารอ้างอิง ${(result.sources || []).length} รายการ</span>
-        </div>
-      </div>
-    `;
-    box.appendChild(msgDiv);
-    box.scrollTop = box.scrollHeight;
-  } catch (err) {
-    if (loadingEl.cleanup) loadingEl.cleanup(); else loadingEl.remove();
-    const box = document.getElementById('ai-messages');
-    const errDiv = document.createElement('div');
-    errDiv.className = 'ai-msg assistant';
-    errDiv.innerHTML = `
-      <div class="ai-avatar">⚠️</div>
-      <div class="ai-bubble-wrap">
-        <div class="ai-bubble"><p>${escapeHtml(err.message || String(err))}</p></div>
-      </div>
-    `;
-    box.appendChild(errDiv);
-  } finally {
-    startCooldownCountdown(5);
-  }
-}
-
-// AI starts in OFF state with Qwen3.8-27B (Local AI) forced as default (preventing browser form-restore of previous selection).
-(function initAiDefaults() {
-  const engSel = document.getElementById('ai-engine-select');
-  const scopeSel = document.getElementById('ai-scope-select');
-  const sw = document.getElementById('ai-power-switch');
-  if (engSel) { engSel.disabled = false; engSel.value = 'local'; }
-  if (scopeSel) { scopeSel.disabled = false; }
-  if (sw) { sw.checked = false; }
-})();
-</script>
-
 </body>
 </html>
