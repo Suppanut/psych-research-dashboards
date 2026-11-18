@@ -22,6 +22,5 @@
 - `LICENSE` — สัญญาอนุญาตการใช้งาน (MIT License & CC BY 4.0)
 - `.nojekyll` — ไฟล์กำหนดให้ GitHub Pages เสิร์ฟไฟล์ Static HTML โดยตรง
 
-## สัญญาอนุญาตและการอ้างอิง (License & Attribution)
+## สัญญาอนุญาต (License)
 ผลงานนี้เผยแพร่ภายใต้สัญญาอนุญาต **[MIT License](./LICENSE)** (สำหรับโค้ดเว็บแอปพลิเคชัน) และ **[Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/)** (สำหรับฐานข้อมูลและเนื้อหาการวิเคราะห์)
-- **อนุญาตให้นำไปใช้ ดัดแปลง หรือเผยแพร่ต่อได้ โดยต้องระบุเครดิตและอ้างอิงแหล่งที่มา (Attribution Required)**
