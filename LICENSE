@@ -24,16 +24,28 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 ===============================================================================
-2. DATASET & DASHBOARD CONTENT LICENSE (CC BY 4.0 — Attribution Required)
+2. ANALYTICAL COMPILATION & DASHBOARD CONTENT LICENSE (CC BY 4.0)
 ===============================================================================
-The curated datasets, psychometric scale compilations, and analytical summaries
-in this repository are licensed under the Creative Commons Attribution 4.0
-International License (CC BY 4.0): https://creativecommons.org/licenses/by/4.0/
+The original analytical compilations, methodological/statistical classifications,
+psychometric metadata summaries, and aggregated visualizations created for this
+repository are licensed under the Creative Commons Attribution 4.0 International
+License (CC BY 4.0): https://creativecommons.org/licenses/by/4.0/
 
 You are free to:
 - Share: copy and redistribute the material in any medium or format
 - Adapt: remix, transform, and build upon the material for any purpose
 
 Under the following terms:
-- Attribution (ต้องให้เครดิต): You must give appropriate credit to the creator,
-  provide a link to the repository/license, and indicate if changes were made.
+- Attribution: You must give appropriate credit to the creator, provide a link
+  to the repository/license, and indicate if changes were made.
+
+===============================================================================
+3. THIRD-PARTY BIBLIOGRAPHIC METADATA & ABSTRACTS NOTICE
+===============================================================================
+The CC BY 4.0 license above applies solely to the original analytical compilation,
+coding, and summary statistics produced by the repository authors. Individual
+article/thesis titles, bibliographic metadata, and open scholarly abstracts
+(e.g., via Crossref / OpenAlex / I4OA, ThaiJO TCI, and Chula Digiverse) remain
+subject to the rights and licenses of their respective authors, universities,
+and original publishers, and are displayed here for non-commercial scholarly
+discovery and educational reference with direct links to the authoritative sources.
